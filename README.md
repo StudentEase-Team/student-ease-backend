@@ -1,0 +1,3 @@
+# StudentEase backend aplication
+
+**Todo**
