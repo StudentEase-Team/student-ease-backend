@@ -1,0 +1,126 @@
+'Alt + D za prikaz
+@startuml classdiag
+
+interface UserDetails {
+    # getUsername() : String
+    # getPassword() : String
+    # getGetAuthorities() : <GrantedAuthority>
+    # isNonExpired(): Boolean
+    # isNonLocked(): Boolean
+    # isCredentialsNonExpired(): Boolean
+    # isEnabled(): Boolean
+}
+
+class UserRole <<Enumeration>> {
+    ADMIN
+    PROFESSOR
+    STUDENT
+}
+
+abstract class AbstractUser {
+    ID : UUID
+    email : String
+    password : String
+    role : UserRole
+    firstName : String
+    lastName : String
+    phoneNumber : String
+    credentialsUpdatedAt : Date
+    enabled : Boolean
+    locked : Boolean
+
+    # getUsername() : String
+    # getPassword() : String
+    # getGetAuthorities() : <GrantedAuthority>
+    # isNonExpired(): Boolean
+    # isNonLocked(): Boolean
+    # isCredentialsNonExpired(): Boolean
+    # isEnabled(): Boolean
+}
+
+class Student {
+  
+}
+
+class Proffesor {
+  
+}
+
+
+class Admin {
+  
+}
+
+UserDetails <|-- AbstractUser
+UserRole <|-- AbstractUser
+AbstractUser <|--- Student
+AbstractUser <|--- Proffesor
+AbstractUser <|- Admin
+
+class College {
+    Name : String
+}
+
+class Subject {
+    Name : String
+}
+
+College "1" -- "*" Subject : contains
+Proffesor "*" ---- "*" Subject : teaches
+Subject "*" --- "*" Student : attends
+
+class Noticeboard {
+
+}
+
+class NoticeboardItem {
+    Title : String
+    Message : String
+    UpdatedAt : DateTime
+}
+
+Noticeboard "1" *- "*" NoticeboardItem : contains
+Noticeboard "*" -----o "1" College : contains
+NoticeboardItem "*" --- "0..1" Subject : might be about
+
+class Calendar {
+
+}
+
+class CalendarItem {
+    Title : String
+    Start : DateTime
+}
+
+Calendar "1" *- "*" CalendarItem
+Calendar "*" -o "1" College : contains
+CalendarItem "*" ---- "0..1" Subject : might be about
+
+class Repository {
+
+}
+
+class RepositoryItem {
+    Name : String
+    ShortDescription : DateTime
+    URL: String
+}
+
+Repository "1" *- "*" RepositoryItem
+Repository "*" ---o "1" College : contains
+RepositoryItem "*" --- "0..1" Subject : might be about
+
+
+class FAQ {
+
+}
+
+class FAQItem {
+    Title : String
+    Message : String
+    UpdatedAt : DateTime
+}
+
+FAQ "*" -----o "1" College : contains
+FAQ "1" *- "*" FAQItem
+@enduml
