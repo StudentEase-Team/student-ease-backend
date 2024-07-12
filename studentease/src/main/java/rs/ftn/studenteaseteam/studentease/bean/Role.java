@@ -12,7 +12,7 @@ import java.io.Serial;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name="ROLES")
+@Table(name="ROLE")
 public class Role implements GrantedAuthority {
 
     @Serial
@@ -21,10 +21,10 @@ public class Role implements GrantedAuthority {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(name="name")
-    String name;
+    private String name;
 
     @JsonIgnore
     @Override

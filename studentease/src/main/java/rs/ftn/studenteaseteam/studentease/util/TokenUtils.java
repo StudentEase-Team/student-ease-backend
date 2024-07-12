@@ -15,6 +15,7 @@ import java.util.Date;
 
 @Component
 public class TokenUtils {
+
     @Value("studentease")
     private String APP_NAME;
     public String SECRET = System.getenv("TOKEN_SECRET");
@@ -150,5 +151,4 @@ public class TokenUtils {
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
     }
-
 }

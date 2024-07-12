@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class AccessToken {
+
     private String accessToken;
     private int expiresIn;
     private LocalDateTime createdAt;

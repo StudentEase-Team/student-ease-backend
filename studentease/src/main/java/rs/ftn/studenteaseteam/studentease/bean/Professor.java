@@ -11,6 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Professor extends AbstractUser {
+
     @Id
     @GeneratedValue
     public UUID id;
