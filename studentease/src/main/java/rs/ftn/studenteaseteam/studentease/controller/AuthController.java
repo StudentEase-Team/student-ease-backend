@@ -1,5 +1,6 @@
 package rs.ftn.studenteaseteam.studentease.controller;
 
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,8 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/login")
+    @PostMapping("/api/login")
+    @PermitAll
     public ResponseEntity<AccessToken> login(@RequestBody LoginRequestDTO dto) {
         return authService.login(dto);
     }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import rs.ftn.studenteaseteam.studentease.bean.Admin;
 import rs.ftn.studenteaseteam.studentease.repository.AdminRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -16,8 +17,8 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public Admin get(UUID id) {
-        return adminRepository.getReferenceById(id);
+    public Optional<Admin> get(UUID id) {
+        return adminRepository.findById(id);
     }
 
     public List<Admin> getAll() {

@@ -42,7 +42,7 @@ class Student {
   
 }
 
-class Proffesor {
+class Professor {
   
 }
 
@@ -52,9 +52,9 @@ class Admin {
 }
 
 UserDetails <|-- AbstractUser
-UserRole <|-- AbstractUser
+UserRole <|- AbstractUser
 AbstractUser <|--- Student
-AbstractUser <|--- Proffesor
+AbstractUser <|--- Professor
 AbstractUser <|- Admin
 
 class College {
@@ -65,24 +65,44 @@ class Subject {
     Name : String
 }
 
+class Grade {
+    Value : Int
+    Date : Date
+}
+
 College "1" -- "*" Subject : contains
-Proffesor "*" ---- "*" Subject : teaches
+Professor "*" ---- "*" Subject : teaches
 Subject "*" --- "*" Student : attends
+Grade "*" - "1" Student : receive
+Grade "*" - "1" Subject : is from
 
 class Noticeboard {
 
+}
+
+class NoticeboardItemCategory <<Enumaration>> {
+    UNIVERSITY_ANNOUNCEMENT
+    UNIVERSITY_GUEST_ANNOUNCEMENT
+    COLLEGE_ANNOUCEMENT
+    COLLEGE_GUEST_ANNOUCEMENT
+    SUBJECT_ANNOUCEMENT
+    SUBJECT_EXAM_RESULT_ANNOUCEMENT
+    SUBJECT_EXAM_DATE_ANNOUNCEMENT
+    INTERNSHIP_ANNOUNCEMENT
+    ACTIVITIES_ANNOUNCEMENT
 }
 
 class NoticeboardItem {
     Title : String
     Message : String
     UpdatedAt : DateTime
+    Category : NoticeboardItemCategory
 }
 
 Noticeboard "1" *- "*" NoticeboardItem : contains
-Noticeboard "*" -----o "1" College : contains
+Noticeboard "0" -----o "1" College : contains
 NoticeboardItem "*" --- "0..1" Subject : might be about
-
+NoticeboardItemCategory <|-- NoticeboardItem
 class Calendar {
 
 }

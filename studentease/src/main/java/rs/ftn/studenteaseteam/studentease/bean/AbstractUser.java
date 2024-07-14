@@ -7,28 +7,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
+@Getter
 public abstract class AbstractUser implements UserDetails {
 
-    protected enum UserRole {
+    public enum UserRole {
         STUDENT,
         PROFESSOR,
         ADMIN
     }
 
     protected String email;
-    @JsonIgnore
     protected String password;
-    @JsonIgnore
     protected UserRole userRole;
     protected String firstName;
     protected String lastName;
     protected String phone;
-    @JsonIgnore
-    @Getter
     protected LocalDateTime credentialsUpdatedAt;
-    @JsonIgnore
     protected Boolean isEnabled;
-    @JsonIgnore
     protected Boolean isLocked;
 
     @Override

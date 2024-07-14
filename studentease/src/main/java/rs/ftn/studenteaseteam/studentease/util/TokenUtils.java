@@ -18,7 +18,8 @@ public class TokenUtils {
 
     @Value("studentease")
     private String APP_NAME;
-    public String SECRET = System.getenv("TOKEN_SECRET");
+    @Value("testtajna")
+    public String SECRET;
     @Value("900000")
     private int EXPIRES_IN;
     @Value("Authorization")

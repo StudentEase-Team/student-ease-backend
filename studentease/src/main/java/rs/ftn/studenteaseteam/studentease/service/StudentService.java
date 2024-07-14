@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import rs.ftn.studenteaseteam.studentease.bean.Student;
 import rs.ftn.studenteaseteam.studentease.repository.StudentRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -16,8 +17,8 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student get(UUID id) {
-        return  studentRepository.getReferenceById(id);
+    public Optional<Student> get(UUID id) {
+        return  studentRepository.findById(id);
     }
 
     public List<Student> getAll() {

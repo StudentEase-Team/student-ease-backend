@@ -22,6 +22,12 @@ public class Student extends AbstractUser {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
+    @ManyToMany
+    @JoinTable(name="student_subjects",
+        joinColumns = @JoinColumn(name="student_id", referencedColumnName="id"),
+        inverseJoinColumns = @JoinColumn(name="subject_id", referencedColumnName="id"))
+    private List<Subject> subjects;
+
     public Student() {
         userRole = UserRole.STUDENT;
     }
