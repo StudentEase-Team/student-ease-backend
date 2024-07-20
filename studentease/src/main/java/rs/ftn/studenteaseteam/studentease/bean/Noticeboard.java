@@ -1,5 +1,6 @@
 package rs.ftn.studenteaseteam.studentease.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +17,11 @@ public class Noticeboard {
     private boolean enabled;
 
     @OneToMany
+    @JsonIgnore
     private List<NoticeboardItem> noticeboardItems;
 
     @OneToOne
     @JoinColumn(name="college_id")
+    @JsonIgnore
     private College college;
 }

@@ -1,9 +1,7 @@
 package rs.ftn.studenteaseteam.studentease.bean;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,5 +21,11 @@ public class Subject {
     private List<NoticeboardItem> noticeboardItems;
 
     @ManyToMany(mappedBy="subjects")
+    @JsonIgnore
     private List<Student> students;
+
+    @ManyToOne
+    @JoinColumn(name="college_id")
+    @JsonIgnore
+    private College college;
 }

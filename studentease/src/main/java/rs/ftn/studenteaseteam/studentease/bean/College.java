@@ -1,10 +1,11 @@
 package rs.ftn.studenteaseteam.studentease.bean;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,4 +19,11 @@ public class College {
 
     @OneToOne(mappedBy="college")
     private Noticeboard noticeboard;
+
+    @ManyToMany(mappedBy="college")
+    @JsonIgnore
+    private List<Student> students;
+
+    @OneToMany(mappedBy="college", fetch = FetchType.EAGER)
+    private List<Subject> subjects;
 }
