@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import rs.ftn.studenteaseteam.studentease.bean.AbstractUser;
 import rs.ftn.studenteaseteam.studentease.dto.LoginRequestDTO;
+import rs.ftn.studenteaseteam.studentease.dto.UserStateDTO;
 import rs.ftn.studenteaseteam.studentease.token.AccessToken;
 import rs.ftn.studenteaseteam.studentease.util.TokenUtils;
 
@@ -30,14 +31,14 @@ public class AuthService {
         return new  ResponseEntity<AbstractUser>((AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal(), HttpStatus.OK);
     }
 
-    public ResponseEntity<AccessToken> login(LoginRequestDTO dto) {
+    public ResponseEntity<UserStateDTO> login(LoginRequestDTO dto) {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     dto.getEmail(), dto.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             AbstractUser user = (AbstractUser) authentication.getPrincipal();
             AccessToken tokenState = new AccessToken(tokenUtils.generateToken(user.getUsername()), tokenUtils.getExpiredIn());
-            return new ResponseEntity<>(tokenState, HttpStatus.CREATED);
+            return new ResponseEntity<>(new UserStateDTO(tokenState, user.getUserRole()), HttpStatus.OK);
         }
         catch (BadCredentialsException e) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

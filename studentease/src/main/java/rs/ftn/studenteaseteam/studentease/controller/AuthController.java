@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import rs.ftn.studenteaseteam.studentease.dto.LoginRequestDTO;
+import rs.ftn.studenteaseteam.studentease.dto.UserStateDTO;
 import rs.ftn.studenteaseteam.studentease.service.AuthService;
-import rs.ftn.studenteaseteam.studentease.token.AccessToken;
 
 @RestController
 public class AuthController {
@@ -22,7 +22,7 @@ public class AuthController {
 
     @PostMapping("/api/login")
     @PermitAll
-    public ResponseEntity<AccessToken> login(@RequestBody LoginRequestDTO dto) {
+    public ResponseEntity<UserStateDTO> login(@RequestBody LoginRequestDTO dto) {
         return authService.login(dto);
     }
 }
