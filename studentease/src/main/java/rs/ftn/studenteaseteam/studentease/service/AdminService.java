@@ -17,7 +17,7 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public Optional<Admin> get(UUID id) {
+    public Optional<Admin> getById(UUID id) {
         return adminRepository.findById(id);
     }
 

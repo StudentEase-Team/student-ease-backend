@@ -17,7 +17,7 @@ public class SubjectService {
         this.subjectRepository = subjectRepository;
     }
 
-    public Optional<Subject> get(long id) {
+    public Optional<Subject> getById(long id) {
         return subjectRepository.findById(id);
     }
 }

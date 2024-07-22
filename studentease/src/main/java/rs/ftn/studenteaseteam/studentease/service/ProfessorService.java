@@ -17,7 +17,7 @@ public class ProfessorService {
         this.professorRepository = professorRepository;
     }
 
-    public Optional<Professor> get(UUID id) {
+    public Optional<Professor> getById(UUID id) {
         return professorRepository.findById(id);
     }
 

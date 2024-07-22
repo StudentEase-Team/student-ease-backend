@@ -22,7 +22,7 @@ public class NoticeboardService {
     }
 
     //CRUD ZA NOTICEBOARD
-    public Optional<Noticeboard> get(long id) {
+    public Optional<Noticeboard> getById(long id) {
         return noticeboardRepository.findById(id);
     }
 }

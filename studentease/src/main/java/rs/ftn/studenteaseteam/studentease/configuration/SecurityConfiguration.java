@@ -61,8 +61,13 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers(HttpMethod.POST, "/api/noticeboard/item").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/api/college").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/noticeboard/item").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/college").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/noticeboard/items/all").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/noticeboard/items").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/faq/items").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/faq/item").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/faq/item").authenticated()
                 )
                 .headers(headers -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::deny)

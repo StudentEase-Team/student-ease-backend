@@ -3,14 +3,13 @@ package rs.ftn.studenteaseteam.studentease.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import rs.ftn.studenteaseteam.studentease.bean.AbstractUser;
 import rs.ftn.studenteaseteam.studentease.bean.NoticeboardItem;
 import rs.ftn.studenteaseteam.studentease.dto.NoticeboardItemDTO;
 import rs.ftn.studenteaseteam.studentease.mapper.NoticeboardItemMapper;
 import rs.ftn.studenteaseteam.studentease.repository.NoticeboardItemRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +26,7 @@ public class NoticeboardItemService {
 
     //CRUD ZA NOTICEBOARD ITEM
 
-    public Optional<NoticeboardItem> get(long id)
+    public Optional<NoticeboardItem> getById(long id)
     {
         return noticeboardItemRepository.findById(id);
     }
@@ -59,5 +58,25 @@ public class NoticeboardItemService {
 
         noticeboardItemRepository.save(newNoticeboardItem);
         return new ResponseEntity<>(true, HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<List<NoticeboardItemDTO>> getAllNoticeboardItems() {
+         List<NoticeboardItemDTO> dtos = new ArrayList<>();
+         for(NoticeboardItem item : noticeboardItemRepository.findAll().stream().toList()) {
+             dtos.add(mapper.mapIncomingObjectToDTO(item));
+         }
+         return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<NoticeboardItemDTO>> getNoticeboardItemsByCollege(String collegeAbb) {
+        List<NoticeboardItemDTO> dtos = new ArrayList<>();
+        for(NoticeboardItem item : noticeboardItemRepository.findAll().stream().toList()) {
+            if(item.getSubject() != null)
+                if(item.getSubject().getCollege().getAbbreviation().equals(collegeAbb)) {
+                    dtos.add(mapper.mapIncomingObjectToDTO(item));
+                }
+        }
+
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 }

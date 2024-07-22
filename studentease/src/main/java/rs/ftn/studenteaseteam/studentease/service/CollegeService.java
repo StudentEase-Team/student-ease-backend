@@ -15,7 +15,7 @@ public class CollegeService {
     @Autowired
     public CollegeService(CollegeRepository collegeRepository) { this.collegeRepository = collegeRepository; }
 
-    public Optional<College> get(Long id) { return collegeRepository.findById(id); }
+    public Optional<College> getById(Long id) { return collegeRepository.findById(id); }
 
     public List<College> getAll() { return collegeRepository.findAll(); }
 

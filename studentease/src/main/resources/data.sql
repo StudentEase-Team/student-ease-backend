@@ -1,3 +1,7 @@
+-- noinspection SqlNoDataSourceInspectionForFile
+
+-- noinspection SqlNoDataSourceInspectionForFile
+
 INSERT INTO public.ROLE (name) VALUES ('ROLE_STUDENT');
 INSERT INTO public.ROLE (name) VALUES ('ROLE_PROFESSOR');
 INSERT INTO public.ROLE (name) VALUES ('ROLE_ADMIN');
@@ -20,14 +24,22 @@ INSERT INTO public.COLLEGE (id, name, abbreviation) VALUES ('2', 'Pravni fakulte
 
 INSERT INTO public.NOTICEBOARD (id, enabled, college_id) VALUES('1', 'true', '1');
 
-INSERT INTO public.student_college (college_id, students_id) VALUES('1', 'ef6adb8d-4f53-4693-a71a-7689463e7da2');
-
 
 INSERT INTO public.SUBJECT (id, college_id, name) VALUES('19', '1', 'Diplomski rad');
 
 INSERT INTO public.SUBJECT (id, college_id, name) VALUES('21', '2', 'Rimsko pravo 1');
 INSERT INTO public.SUBJECT (id, college_id, name) VALUES('22', '2', 'Rimsko pravo 2');
 INSERT INTO public.SUBJECT (id, college_id, name) VALUES('29', '2', 'Diplomski rad');
+
+INSERT INTO public.FAQITEM (id, question, answer, is_answered) VALUES('0', 'Dobar dan, zanima me kada pocinje upis na fakultet?', 'Postovani, upis na fakultet pocinje nakon prijemnog ispita, 25. jula.', 'True');
+INSERT INTO public.FAQITEM (id, question, answer, is_answered) VALUES('1', 'Postovanje, interesuje me sta je sve potrebno od dokumentacije za konkurs za studentsku stipendiju', 'Dobar dan, potrebni su vam papiri iz gradske kuce o mesecnim prihodima, kao i potvrda da ste redovan student i ukoliko imate brata/sestru moracete dostaviti istu potvrdu i za njih.', 'True');
+INSERT INTO public.FAQITEM (id, question, answer, is_answered) VALUES('2', 'Gde mogu da uplatim  novac za polaganje ispita, ako sam zakasnio sa prijavom ispita na studentskom servisu?', '', 'False');
+
+
+INSERT INTO public.NOTICEBOARD_ITEM (id, noticeboard_id, title, message, updated_at, category) VALUES ('0', '1', 'Univeristy announcement', 'We are testing the new noticeboard', 'NOW()', '0');
+INSERT INTO public.NOTICEBOARD_ITEM (id, noticeboard_id, title, message, updated_at, category, subject_id) VALUES ('1', '1', 'FTN Diplomski announcement', 'We are testing the new noticeboard', 'NOW()', '0', '19');
+
+INSERT INTO public.student_college (college_id, students_id) VALUES('1', 'ef6adb8d-4f53-4693-a71a-7689463e7da2');
 
 -- Ognjen slusa predmet diplomski rad
 INSERT INTO public.STUDENT_SUBJECTS (student_id, subject_id) VALUES('ef6adb8d-4f53-4693-a71a-7689463e7da2', '19');

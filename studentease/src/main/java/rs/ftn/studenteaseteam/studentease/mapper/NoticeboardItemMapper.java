@@ -31,13 +31,13 @@ public class NoticeboardItemMapper {
         noticeboardItem.setMessage(dto.getMessage());
         noticeboardItem.setUpdatedAt(LocalDateTime.now());
 
-        Optional<Noticeboard> potentialNoticeboard = noticeboardService.get(dto.getNoticeboardId());
+        Optional<Noticeboard> potentialNoticeboard = noticeboardService.getById(dto.getNoticeboardId());
         if(potentialNoticeboard.isPresent()) {
             noticeboardItem.setNoticeboard(potentialNoticeboard.get());
             potentialNoticeboard.get().getNoticeboardItems().add(noticeboardItem);
         }
 
-        Optional<Subject> potentialSubject = subjectService.get(dto.getSubjectId());
+        Optional<Subject> potentialSubject = subjectService.getById(dto.getSubjectId());
         potentialSubject.ifPresent(noticeboardItem::setSubject);
 
         switch(dto.getCategory())
@@ -54,5 +54,29 @@ public class NoticeboardItemMapper {
         }
 
         return noticeboardItem;
+    }
+
+    public NoticeboardItemDTO mapIncomingObjectToDTO(NoticeboardItem item) {
+
+        NoticeboardItemDTO dto = new NoticeboardItemDTO();
+        dto.setId(0L);
+        dto.setTitle(item.getTitle());
+        dto.setMessage(item.getMessage());
+        dto.setUpdatedAt(LocalDateTime.now());
+
+        switch(item.getCategory())
+        {
+            case NoticeboardItem.NoticeboardItemCategory.UNIVERSITY_ANNOUNCEMENT: dto.setCategory("UNIVERSITY_ANNOUNCEMENT");
+            case NoticeboardItem.NoticeboardItemCategory.UNIVERSITY_GUEST_ANNOUNCEMENT: dto.setCategory("UNIVERSITY_GUEST_ANNOUNCEMENT");
+            case NoticeboardItem.NoticeboardItemCategory.COLLEGE_ANNOUNCEMENT: dto.setCategory("COLLEGE_ANNOUNCEMENT");
+            case NoticeboardItem.NoticeboardItemCategory.COLLEGE_GUEST_ANNOUNCEMENT: dto.setCategory("COLLEGE_GUEST_ANNOUNCEMENT");
+            case NoticeboardItem.NoticeboardItemCategory.SUBJECT_ANNOUNCEMENT: dto.setCategory("SUBJECT_ANNOUNCEMENT");
+            case NoticeboardItem.NoticeboardItemCategory.SUBJECT_EXAM_RESULT_ANNOUNCEMENT: dto.setCategory("SUBJECT_EXAM_RESULT_ANNOUNCEMENT");
+            case NoticeboardItem.NoticeboardItemCategory.SUBJECT_EXAM_DATE_ANNOUNCEMENT: dto.setCategory("SUBJECT_EXAM_DATE_ANNOUNCEMENT");
+            case NoticeboardItem.NoticeboardItemCategory.INTERNSHIP_ANNOUNCEMENT: dto.setCategory("INTERNSHIP_ANNOUNCEMENT");
+            case NoticeboardItem.NoticeboardItemCategory.ACTIVITIES_ANNOUNCEMENT: dto.setCategory("ACTIVITIES_ANNOUNCEMENT");
+        }
+
+        return dto;
     }
 }
