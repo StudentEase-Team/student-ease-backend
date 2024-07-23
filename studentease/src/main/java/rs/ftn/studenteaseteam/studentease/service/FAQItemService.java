@@ -38,10 +38,20 @@ public class FAQItemService {
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
+    public ResponseEntity<List<FAQItemDTO>> getUnasweredFAQItems() {
+        List<FAQItemDTO> dtos = new ArrayList<>();
+        for(FAQItem item : faqItemRepository.findAll()) {
+            if(!item.getIsAnswered())
+                dtos.add(mapper.mapIncomingObjectToDTO(item));
+        }
+
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
     public ResponseEntity<Boolean> createFAQItem(FAQItemDTO faqItemDTO) {
         try{
             FAQItem item = mapper.mapIncomingDTOToObject(faqItemDTO);
-            item.setId(0L);
+            item.setId(null);
             item.setAnswer("");
             item.setIsAnswered(false);
             save(item);
@@ -61,7 +71,7 @@ public class FAQItemService {
                 item.setIsAnswered(true);
                 save(item);
 
-                return new ResponseEntity<>(true, HttpStatus.CREATED);
+                return new ResponseEntity<>(true, HttpStatus.OK);
             }
             else {
                 return new ResponseEntity<>(false, HttpStatus.CONFLICT);

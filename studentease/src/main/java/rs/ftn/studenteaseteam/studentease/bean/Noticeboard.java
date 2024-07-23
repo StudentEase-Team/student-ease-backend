@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Noticeboard {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private boolean enabled;
 

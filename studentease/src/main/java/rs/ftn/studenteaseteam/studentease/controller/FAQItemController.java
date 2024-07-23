@@ -20,6 +20,11 @@ public class FAQItemController {
         return faqItemService.getAllFAQItems();
     }
 
+    @GetMapping("/api/faq/items/unanswered")
+    public ResponseEntity<List<FAQItemDTO>> getUnansweredFAQItems() {
+        return faqItemService.getUnasweredFAQItems();
+    }
+
     @PostMapping("/api/faq/item")
     public ResponseEntity<Boolean> createFAQItem(@RequestBody FAQItemDTO faqItem) {
         return faqItemService.createFAQItem(faqItem);

@@ -66,6 +66,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/noticeboard/items/all").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/noticeboard/items").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/faq/items").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/faq/items/unanswered").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/faq/item").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/faq/item").authenticated()
                 )
