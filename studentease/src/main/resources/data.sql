@@ -19,8 +19,8 @@ INSERT INTO public.admin_roles(role_id, admin_id) VALUES('3', 'b28c43a1-9faf-41a
 INSERT INTO public.STUDENT (id, email, first_name, last_name, password, is_enabled, is_locked, credentials_updated_at, user_role) VALUES ('ef6adb8d-4f53-4693-a71a-7689463e7da2', 'milojevic.ra233.2020@uns.ac.rs', 'Ognjen', 'Milojevic', '$2a$10$P/aKCRFdwl.7MIxbohlZJOR74RCBmQY2YVkV43zjjnitKHKSIYJv.', 'true', 'false', 'NOW()', '0');
 INSERT INTO public.student_roles(role_id, student_id) VALUES('1', 'ef6adb8d-4f53-4693-a71a-7689463e7da2');
 
-INSERT INTO public.COLLEGE (id, name, abbreviation) VALUES ('1', 'Fakultet tehnickih nauka', 'FTN');
-INSERT INTO public.COLLEGE (id, name, abbreviation) VALUES ('2', 'Pravni fakultet', 'PF');
+INSERT INTO public.COLLEGE (id, name, abbreviation, address, phone_number, email) VALUES ('1', 'Fakultet tehnickih nauka', 'FTN', 'Trg Dositeja Obradovica 6, Novi Sad', '+38121450810', 'studenti@ftn.com');
+INSERT INTO public.COLLEGE (id, name, abbreviation, address, phone_number, email) VALUES ('2', 'Pravni fakultet', 'PF', 'Trg Dositeja Obradovica 1, Novi Sad', '+381214853097', 'student@pravnifakultet.com');
 
 INSERT INTO public.NOTICEBOARD (id, enabled, college_id) VALUES('1', 'true', '1');
 
