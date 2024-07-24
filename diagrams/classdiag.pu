@@ -76,10 +76,6 @@ Subject "*" --- "*" Student : attends
 Grade "*" - "1" Student : receive
 Grade "*" - "1" Subject : is from
 
-class Noticeboard {
-
-}
-
 class NoticeboardItemCategory <<Enumaration>> {
     UNIVERSITY_ANNOUNCEMENT
     UNIVERSITY_GUEST_ANNOUNCEMENT
@@ -99,41 +95,32 @@ class NoticeboardItem {
     Category : NoticeboardItemCategory
 }
 
-Noticeboard "1" *- "*" NoticeboardItem : contains
-Noticeboard "0" -----o "1" College : contains
 NoticeboardItem "*" --- "0..1" Subject : might be about
+NoticeboardItem "*" --- "0..1" College : might be about
 NoticeboardItemCategory <|-- NoticeboardItem
-class Calendar {
-
-}
 
 class CalendarItem {
     Title : String
     Start : DateTime
 }
 
-Calendar "1" *- "*" CalendarItem
-Calendar "*" -o "1" College : contains
 CalendarItem "*" ---- "0..1" Subject : might be about
 
-class Repository {
-
+class ResourceType <<Enumeration>> {
+    VIDEO_MATERIAL
+    REGULAR_MATERIAL
+    EXAM_EXAMPLE
+    PROGRAM
 }
 
-class RepositoryItem {
+class Resource {
     Name : String
-    ShortDescription : DateTime
+    ShortDescription : String
     URL: String
 }
 
-Repository "1" *- "*" RepositoryItem
-Repository "*" ---o "1" College : contains
-RepositoryItem "*" --- "0..1" Subject : might be about
-
-
-class FAQ {
-
-}
+Resource "*" --- "0..1" Subject : might be about
+ResourceType <|-- Resource
 
 class FAQItem {
     Title : String
@@ -141,6 +128,6 @@ class FAQItem {
     UpdatedAt : DateTime
 }
 
-FAQ "*" -----o "1" College : contains
 FAQ "1" *- "*" FAQItem
+
 @enduml
