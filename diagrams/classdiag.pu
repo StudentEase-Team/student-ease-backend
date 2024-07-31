@@ -1,0 +1,133 @@
+'Alt + D za prikaz
+@startuml classdiag
+
+interface UserDetails {
+    # getUsername() : String
+    # getPassword() : String
+    # getGetAuthorities() : <GrantedAuthority>
+    # isNonExpired(): Boolean
+    # isNonLocked(): Boolean
+    # isCredentialsNonExpired(): Boolean
+    # isEnabled(): Boolean
+}
+
+class UserRole <<Enumeration>> {
+    ADMIN
+    PROFESSOR
+    STUDENT
+}
+
+abstract class AbstractUser {
+    ID : UUID
+    email : String
+    password : String
+    role : UserRole
+    firstName : String
+    lastName : String
+    phoneNumber : String
+    credentialsUpdatedAt : Date
+    enabled : Boolean
+    locked : Boolean
+
+    # getUsername() : String
+    # getPassword() : String
+    # getGetAuthorities() : <GrantedAuthority>
+    # isNonExpired(): Boolean
+    # isNonLocked(): Boolean
+    # isCredentialsNonExpired(): Boolean
+    # isEnabled(): Boolean
+}
+
+class Student {
+  
+}
+
+class Professor {
+  
+}
+
+
+class Admin {
+  
+}
+
+UserDetails <|-- AbstractUser
+UserRole <|- AbstractUser
+AbstractUser <|--- Student
+AbstractUser <|--- Professor
+AbstractUser <|- Admin
+
+class College {
+    Name : String
+}
+
+class Subject {
+    Name : String
+}
+
+class Grade {
+    Value : Int
+    Date : Date
+}
+
+College "1" -- "*" Subject : contains
+Professor "*" ---- "*" Subject : teaches
+Subject "*" --- "*" Student : attends
+Grade "*" - "1" Student : receive
+Grade "*" - "1" Subject : is from
+
+class NoticeboardItemCategory <<Enumaration>> {
+    UNIVERSITY_ANNOUNCEMENT
+    UNIVERSITY_GUEST_ANNOUNCEMENT
+    COLLEGE_ANNOUCEMENT
+    COLLEGE_GUEST_ANNOUCEMENT
+    SUBJECT_ANNOUCEMENT
+    SUBJECT_EXAM_RESULT_ANNOUCEMENT
+    SUBJECT_EXAM_DATE_ANNOUNCEMENT
+    INTERNSHIP_ANNOUNCEMENT
+    ACTIVITIES_ANNOUNCEMENT
+}
+
+class NoticeboardItem {
+    Title : String
+    Message : String
+    UpdatedAt : DateTime
+    Category : NoticeboardItemCategory
+}
+
+NoticeboardItem "*" --- "0..1" Subject : might be about
+NoticeboardItem "*" --- "0..1" College : might be about
+NoticeboardItemCategory <|-- NoticeboardItem
+
+class CalendarItem {
+    Title : String
+    Start : DateTime
+}
+
+CalendarItem "*" ---- "0..1" Subject : might be about
+
+class ResourceType <<Enumeration>> {
+    VIDEO_MATERIAL
+    REGULAR_MATERIAL
+    EXAM_EXAMPLE
+    PROGRAM
+}
+
+class Resource {
+    Name : String
+    ShortDescription : String
+    URL: String
+}
+
+Resource "*" --- "0..1" Subject : might be about
+ResourceType <|-- Resource
+
+class FAQItem {
+    Title : String
+    Message : String
+    UpdatedAt : DateTime
+}
+
+FAQ "1" *- "*" FAQItem
+
+@enduml
