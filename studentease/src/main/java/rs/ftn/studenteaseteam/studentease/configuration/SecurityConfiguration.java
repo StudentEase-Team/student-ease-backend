@@ -67,6 +67,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/faq/items/unanswered").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/faq/item").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/faq/item/{id}").hasAnyAuthority("ROLE_ADMIN", "ROLE_PROFESSOR")
+                        .requestMatchers(HttpMethod.DELETE, "/api/noticeboard/item/{id}").hasAnyAuthority("ROLE_ADMIN", "ROLE_PROFESSOR")
                         .requestMatchers(HttpMethod.PUT, "/api/faq/item").hasAnyAuthority("ROLE_ADMIN", "ROLE_PROFESSOR")
                         .requestMatchers(HttpMethod.POST, "/api/login").anonymous()
                         .requestMatchers(HttpMethod.GET, "/api/whoami").authenticated()

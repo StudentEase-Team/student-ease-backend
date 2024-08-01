@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import rs.ftn.studenteaseteam.studentease.bean.AbstractUser;
+import rs.ftn.studenteaseteam.studentease.bean.FAQItem;
 import rs.ftn.studenteaseteam.studentease.bean.NoticeboardItem;
 import rs.ftn.studenteaseteam.studentease.dto.NoticeboardItemDTO;
 import rs.ftn.studenteaseteam.studentease.mapper.NoticeboardItemMapper;
@@ -17,8 +18,8 @@ import java.util.Optional;
 
 @Service
 public class NoticeboardItemService {
-    private NoticeboardItemRepository noticeboardItemRepository;
-    private NoticeboardItemMapper mapper;
+    private final NoticeboardItemRepository noticeboardItemRepository;
+    private final NoticeboardItemMapper mapper;
 
     @Autowired
     public NoticeboardItemService(NoticeboardItemRepository noticeboardItemRepository, NoticeboardItemMapper mapper) {
@@ -60,6 +61,24 @@ public class NoticeboardItemService {
 
         noticeboardItemRepository.save(newNoticeboardItem);
         return new ResponseEntity<>(true, HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<Boolean> deleteNoticeboardItem(long id) {
+        try{
+            NoticeboardItem item = noticeboardItemRepository.findById(id).orElse(null);
+            if(item != null) {
+                AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                if(item.getCreatorId().equals(user.getId()) || user.getUserRole().equals(AbstractUser.UserRole.ADMIN)) {
+                    noticeboardItemRepository.delete(item);
+                    return new ResponseEntity<>(true, HttpStatus.OK);
+                }
+                return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
+            }
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public ResponseEntity<List<NoticeboardItemDTO>> getAllNoticeboardItems() {

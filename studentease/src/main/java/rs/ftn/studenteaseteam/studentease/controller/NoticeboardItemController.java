@@ -34,4 +34,9 @@ public class NoticeboardItemController {
     public ResponseEntity<List<NoticeboardItemDTO>> getNoticeboardItemsByCollege(@RequestParam String collegeAbb) {
         return noticeboardItemService.getNoticeboardItemsByCollege(collegeAbb);
     }
+
+    @DeleteMapping("/api/noticeboard/item/{id}")
+    public ResponseEntity<Boolean> deleteNoticeboardItem(@PathVariable long id) {
+        return noticeboardItemService.deleteNoticeboardItem(id);
+    }
 }

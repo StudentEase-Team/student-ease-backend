@@ -7,10 +7,22 @@ INSERT INTO public.ROLE (name) VALUES ('ROLE_PROFESSOR');
 INSERT INTO public.ROLE (name) VALUES ('ROLE_ADMIN');
 
 --export enum UserRole {
---    STUDENT = 'STUDENT',
---    PROFESSOR = 'PROFESSOR',
---    ADMIN = 'ADMIN',
+--0    STUDENT = 'STUDENT',
+--1    PROFESSOR = 'PROFESSOR',
+--2    ADMIN = 'ADMIN',
 --}
+
+--public enum NoticeboardItemCategory {
+--0        UNIVERSITY_ANNOUNCEMENT,
+--1        UNIVERSITY_GUEST_ANNOUNCEMENT,
+--2        COLLEGE_ANNOUNCEMENT,
+--3        COLLEGE_GUEST_ANNOUNCEMENT,
+--4        SUBJECT_ANNOUNCEMENT,
+--5        SUBJECT_EXAM_RESULT_ANNOUNCEMENT,
+--6        SUBJECT_EXAM_DATE_ANNOUNCEMENT,
+--7        INTERNSHIP_ANNOUNCEMENT,
+--8        ACTIVITIES_ANNOUNCEMENT
+--    }
 
 
 INSERT INTO public.ADMIN (id, email, password, is_enabled, is_locked, credentials_updated_at, user_role) VALUES ('b28c43a1-9faf-41ab-aab0-aae654a30833', 'admin@studentease.com', '$2a$10$P/aKCRFdwl.7MIxbohlZJOR74RCBmQY2YVkV43zjjnitKHKSIYJv.', 'true', 'false', 'NOW()', '2');
@@ -42,8 +54,8 @@ INSERT INTO public.FAQITEM (question, answer, is_answered, creator_id) VALUES('P
 INSERT INTO public.FAQITEM (question, answer, is_answered) VALUES('Gde mogu da uplatim  novac za polaganje ispita, ako sam zakasnio sa prijavom ispita na studentskom servisu?', '', 'False');
 
 
-INSERT INTO public.NOTICEBOARD_ITEM (id, noticeboard_id, title, message, updated_at, category) VALUES ('0', '1', 'Univeristy announcement', 'We are testing the new noticeboard', 'NOW()', '0');
-INSERT INTO public.NOTICEBOARD_ITEM (id, noticeboard_id, title, message, updated_at, category, subject_id) VALUES ('1', '1', 'FTN Diplomski announcement', 'We are testing the new noticeboard', 'NOW()', '0', '19');
+INSERT INTO public.NOTICEBOARD_ITEM (id, noticeboard_id, title, message, updated_at, category, creator_id) VALUES ('1', '1', 'Univeristy announcement', 'We are testing the new noticeboard', 'NOW()', '0', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
+INSERT INTO public.NOTICEBOARD_ITEM (id, noticeboard_id, title, message, updated_at, category, subject_id, creator_id) VALUES ('2', '1', 'FTN Diplomski announcement', 'We are testing the new noticeboard', 'NOW()', '4', '19', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
 
 INSERT INTO public.student_college (college_id, students_id) VALUES('1', 'ef6adb8d-4f53-4693-a71a-7689463e7da2');
 
