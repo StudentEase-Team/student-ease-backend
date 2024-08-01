@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -32,6 +33,7 @@ public class NoticeboardItem {
     private String message;
     private LocalDateTime updatedAt;
     private NoticeboardItemCategory category;
+    private UUID creatorId;
 
     @ManyToOne
     @JoinColumn(name="noticeboard_id")

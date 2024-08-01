@@ -3,7 +3,9 @@ package rs.ftn.studenteaseteam.studentease.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import rs.ftn.studenteaseteam.studentease.bean.AbstractUser;
 import rs.ftn.studenteaseteam.studentease.bean.NoticeboardItem;
 import rs.ftn.studenteaseteam.studentease.dto.NoticeboardItemDTO;
 import rs.ftn.studenteaseteam.studentease.mapper.NoticeboardItemMapper;
@@ -45,9 +47,9 @@ public class NoticeboardItemService {
     }
 
     public ResponseEntity<Boolean> createNewNoticeboardItem(NoticeboardItemDTO dto) {
-
+        AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         NoticeboardItem newNoticeboardItem = mapper.mapIncomingDTOToObject(dto);
-
+        newNoticeboardItem.setCreatorId(user.getId());
             /*
             //Logika za obavestavanje ovde
             if(dto.getShouldNotify())

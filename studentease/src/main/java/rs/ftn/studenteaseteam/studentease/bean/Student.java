@@ -12,10 +12,6 @@ import java.util.UUID;
 @Setter
 public class Student extends AbstractUser {
 
-    @Id
-    @GeneratedValue
-    public UUID id;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "student_roles",
             joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),

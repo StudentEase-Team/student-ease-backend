@@ -31,7 +31,12 @@ public class FAQItemController {
     }
 
     @PutMapping("/api/faq/item")
-    public ResponseEntity<Boolean> uodateFAQItem(@RequestBody FAQItemDTO faqItem) {
+    public ResponseEntity<Boolean> updateFAQItem(@RequestBody FAQItemDTO faqItem) {
         return faqItemService.updateFAQItem(faqItem);
+    }
+
+    @DeleteMapping("/api/faq/item/{id}")
+    public ResponseEntity<Boolean> deleteFAQItem(@PathVariable long id) {
+        return faqItemService.deleteFAQItem(id);
     }
 }

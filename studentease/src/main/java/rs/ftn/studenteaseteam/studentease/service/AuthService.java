@@ -44,4 +44,16 @@ public class AuthService {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
+    public ResponseEntity<String> whoAmI()
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return new ResponseEntity<>("Not logged in!", HttpStatus.OK);
+        }
+
+        AbstractUser user = (AbstractUser) authentication.getPrincipal();
+        return new ResponseEntity<>("Role: [" + user.getUserRole() + "] \nEmail: [" + user.getEmail() + "] \nID: [" + user.getId() + "]", HttpStatus.OK);
+
+    }
 }

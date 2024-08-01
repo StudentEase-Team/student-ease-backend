@@ -3,6 +3,7 @@ package rs.ftn.studenteaseteam.studentease.controller;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +22,12 @@ public class AuthController {
     }
 
     @PostMapping("/api/login")
-    @PermitAll
     public ResponseEntity<UserStateDTO> login(@RequestBody LoginRequestDTO dto) {
         return authService.login(dto);
+    }
+
+    @GetMapping("/api/whoami")
+    public ResponseEntity<String> whoAmI() {
+        return authService.whoAmI();
     }
 }

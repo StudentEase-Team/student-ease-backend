@@ -1,14 +1,20 @@
 package rs.ftn.studenteaseteam.studentease.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @MappedSuperclass
 @Getter
 public abstract class AbstractUser implements UserDetails {
+    @Id
+    @GeneratedValue
+    public UUID id;
 
     public enum UserRole {
         STUDENT,
