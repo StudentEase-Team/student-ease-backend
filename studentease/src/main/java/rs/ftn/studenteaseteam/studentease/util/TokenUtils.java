@@ -20,7 +20,7 @@ public class TokenUtils {
     private String APP_NAME;
     @Value("testtajna")
     public String SECRET;
-    @Value("900000")
+    @Value("3600000")
     private int EXPIRES_IN;
     @Value("Authorization")
     private String AUTH_HEADER;

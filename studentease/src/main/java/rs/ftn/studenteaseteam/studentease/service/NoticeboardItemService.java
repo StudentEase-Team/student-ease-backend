@@ -34,10 +34,10 @@ public class NoticeboardItemService {
         return noticeboardItemRepository.findById(id);
     }
 
-    public List<NoticeboardItem> getByNoticeboard(long noticeboardId)
+    /*public List<NoticeboardItem> getByNoticeboard(long noticeboardId)
     {
         return noticeboardItemRepository.findAll().stream().filter(item -> item.getNoticeboard().getId() == noticeboardId).toList();
-    }
+    }*/
 
     public List<NoticeboardItem> getAll() {
         return noticeboardItemRepository.findAll();

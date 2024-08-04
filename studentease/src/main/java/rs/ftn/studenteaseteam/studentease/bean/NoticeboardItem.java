@@ -35,11 +35,11 @@ public class NoticeboardItem {
     private NoticeboardItemCategory category;
     private UUID creatorId;
 
-    @ManyToOne
-    @JoinColumn(name="noticeboard_id")
-    private Noticeboard noticeboard;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="subject_id")
     private Subject subject;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="college_id")
+    private College college;
 }

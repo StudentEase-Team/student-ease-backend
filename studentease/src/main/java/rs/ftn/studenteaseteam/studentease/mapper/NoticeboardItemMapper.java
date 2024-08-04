@@ -31,19 +31,21 @@ public class NoticeboardItemMapper {
     public NoticeboardItem mapIncomingDTOToObject(NoticeboardItemDTO dto) {
 
         NoticeboardItem noticeboardItem = new NoticeboardItem();
-        noticeboardItem.setId(0L);
+        noticeboardItem.setId(null);
         noticeboardItem.setTitle(dto.getTitle());
         noticeboardItem.setMessage(dto.getMessage());
         noticeboardItem.setUpdatedAt(LocalDateTime.now());
 
-        Optional<Noticeboard> potentialNoticeboard = noticeboardService.getById(dto.getNoticeboardId());
-        if(potentialNoticeboard.isPresent()) {
-            noticeboardItem.setNoticeboard(potentialNoticeboard.get());
-            potentialNoticeboard.get().getNoticeboardItems().add(noticeboardItem);
+        if(dto.getSubjectId() != null) {
+            Optional<Subject> potentialSubject = subjectService.getById(dto.getSubjectId());
+            potentialSubject.ifPresent(noticeboardItem::setSubject);
         }
 
-        Optional<Subject> potentialSubject = subjectService.getById(dto.getSubjectId());
-        potentialSubject.ifPresent(noticeboardItem::setSubject);
+        if(dto.getCollegeId() != null) {
+            Optional<College> potentialCollege = collegeService.getById(dto.getCollegeId());
+            potentialCollege.ifPresent(noticeboardItem::setCollege);
+        }
+
 
         switch(dto.getCategory())
         {
@@ -83,18 +85,18 @@ public class NoticeboardItemMapper {
         }
 
         if(item.getSubject() != null) {
-            Optional<Subject> s = subjectService.getById(item.getSubject().getId());
-            if(s.isPresent()) {
-                Subject subject = s.get();
-                dto.setSubjectName(subject.getName());
-                dto.setSubjectId(subject.getId());
-                if(subject.getCollege() != null)
-                    dto.setCollegeName(subject.getCollege().getName());
-            }
+            dto.setSubjectName(item.getSubject().getName());
         }
         else
         {
             dto.setSubjectName("");
+        }
+
+        if(item.getCollege() != null) {
+                dto.setCollegeName(item.getCollege().getName());
+        }
+        else
+        {
             dto.setCollegeName("");
         }
         return dto;

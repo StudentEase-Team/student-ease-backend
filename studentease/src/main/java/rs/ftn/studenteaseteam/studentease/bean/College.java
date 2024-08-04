@@ -30,4 +30,8 @@ public class College {
 
     @OneToMany(mappedBy="college", fetch = FetchType.EAGER)
     private List<Subject> subjects;
+
+    @OneToMany
+    @JsonIgnore
+    private List<NoticeboardItem> noticeboardItems;
 }

@@ -54,10 +54,13 @@ INSERT INTO public.FAQITEM (question, answer, is_answered, creator_id) VALUES('P
 INSERT INTO public.FAQITEM (question, answer, is_answered) VALUES('Gde mogu da uplatim  novac za polaganje ispita, ako sam zakasnio sa prijavom ispita na studentskom servisu?', '', 'False');
 
 
-INSERT INTO public.NOTICEBOARD_ITEM (id, noticeboard_id, title, message, updated_at, category, creator_id) VALUES ('1', '1', 'Univeristy announcement', 'We are testing the new noticeboard', 'NOW()', '0', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
-INSERT INTO public.NOTICEBOARD_ITEM (id, noticeboard_id, title, message, updated_at, category, subject_id, creator_id) VALUES ('2', '1', 'FTN Diplomski announcement', 'We are testing the new noticeboard', 'NOW()', '4', '19', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
+INSERT INTO public.NOTICEBOARD_ITEM (id, title, message, updated_at, category, creator_id) VALUES ('1', 'Univeristy announcement', 'We are testing the new noticeboard', 'NOW()', '0', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
+INSERT INTO public.NOTICEBOARD_ITEM (id, title, message, updated_at, category, subject_id, creator_id) VALUES ('2', 'FTN Diplomski announcement', 'We are testing the new noticeboard', 'NOW()', '4', '19', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
 
 INSERT INTO public.student_college (college_id, students_id) VALUES('1', 'ef6adb8d-4f53-4693-a71a-7689463e7da2');
 
 -- Ognjen slusa predmet diplomski rad
 INSERT INTO public.STUDENT_SUBJECTS (student_id, subject_id) VALUES('ef6adb8d-4f53-4693-a71a-7689463e7da2', '19');
+
+-- Postavite AUTO-INCREMENT za NOTICEBOARD_ITEM
+SELECT setval('noticeboard_item_id_seq', (SELECT MAX(id) FROM public.NOTICEBOARD_ITEM));

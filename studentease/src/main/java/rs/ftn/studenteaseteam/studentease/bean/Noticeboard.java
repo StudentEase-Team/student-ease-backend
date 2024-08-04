@@ -17,9 +17,6 @@ public class Noticeboard {
     private Long id;
     private boolean enabled;
 
-    @OneToMany
-    @JsonIgnore
-    private List<NoticeboardItem> noticeboardItems;
 
     @OneToOne
     @JoinColumn(name="college_id")

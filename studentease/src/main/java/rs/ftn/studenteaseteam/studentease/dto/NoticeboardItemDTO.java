@@ -16,8 +16,8 @@ public class NoticeboardItemDTO {
     public String updatedAt;
     public String category;
     public Boolean shouldNotify;
-    public Long noticeboardId;
     public Long subjectId;
+    public Long collegeId;
     public String subjectName;
     public String collegeName;
 }
