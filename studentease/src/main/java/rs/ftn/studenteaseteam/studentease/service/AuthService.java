@@ -37,7 +37,7 @@ public class AuthService {
                     dto.getEmail(), dto.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             AbstractUser user = (AbstractUser) authentication.getPrincipal();
-            AccessToken tokenState = new AccessToken(tokenUtils.generateToken(user.getUsername()), tokenUtils.getExpiredIn());
+            AccessToken tokenState = new AccessToken(tokenUtils.generateToken(user.getUsername(), dto.getPlatform()), tokenUtils.getExpiredIn(dto.getPlatform()));
             return new ResponseEntity<>(new UserStateDTO(tokenState, user.getUserRole()), HttpStatus.OK);
         }
         catch (BadCredentialsException e) {

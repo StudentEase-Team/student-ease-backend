@@ -21,7 +21,7 @@ public class Subject {
     @OneToMany
     private List<NoticeboardItem> noticeboardItems;
 
-    @ManyToMany(mappedBy="subjects")
+    @ManyToMany(mappedBy="subjects", fetch=FetchType.EAGER)
     @JsonIgnore
     private List<Student> students;
 

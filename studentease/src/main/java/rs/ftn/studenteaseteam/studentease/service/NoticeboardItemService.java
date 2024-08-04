@@ -1,5 +1,6 @@
 package rs.ftn.studenteaseteam.studentease.service;
 
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import rs.ftn.studenteaseteam.studentease.bean.AbstractUser;
 import rs.ftn.studenteaseteam.studentease.bean.FAQItem;
 import rs.ftn.studenteaseteam.studentease.bean.NoticeboardItem;
+import rs.ftn.studenteaseteam.studentease.bean.Student;
 import rs.ftn.studenteaseteam.studentease.dto.NoticeboardItemDTO;
 import rs.ftn.studenteaseteam.studentease.mapper.NoticeboardItemMapper;
 import rs.ftn.studenteaseteam.studentease.repository.NoticeboardItemRepository;
@@ -20,11 +22,15 @@ import java.util.Optional;
 public class NoticeboardItemService {
     private final NoticeboardItemRepository noticeboardItemRepository;
     private final NoticeboardItemMapper mapper;
+    private final MailService mailService;
+    private final StudentService studentService;
 
     @Autowired
-    public NoticeboardItemService(NoticeboardItemRepository noticeboardItemRepository, NoticeboardItemMapper mapper) {
+    public NoticeboardItemService(NoticeboardItemRepository noticeboardItemRepository, NoticeboardItemMapper mapper, MailService mailService, StudentService studentService) {
         this.noticeboardItemRepository = noticeboardItemRepository;
         this.mapper = mapper;
+        this.mailService = mailService;
+        this.studentService = studentService;
     }
 
     //CRUD ZA NOTICEBOARD ITEM
@@ -51,13 +57,41 @@ public class NoticeboardItemService {
         AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         NoticeboardItem newNoticeboardItem = mapper.mapIncomingDTOToObject(dto);
         newNoticeboardItem.setCreatorId(user.getId());
-            /*
-            //Logika za obavestavanje ovde
-            if(dto.getShouldNotify())
-            {
 
+        if(dto.shouldNotify)
+        {
+            //Ako je fakultet, onda sve koji pohadjaju taj faks
+            if(dto.getCategory().equals("COLLEGE_ANNOUNCEMENT") || dto.getCategory().equals("COLLEGE_GUEST_ANNOUNCEMENT")){
+                newNoticeboardItem.getCollege().getStudents().forEach(student -> {
+                    try {
+                        mailService.sendNoticeboardMessage(student.getEmail(), "New noticeboard item", "");
+                    } catch (MessagingException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
             }
-            */
+            //Ako je predmet, onda sve koji slusaju taj predmet
+            else if(dto.getCategory().equals("SUBJECT_ANNOUNCEMENT") || dto.getCategory().equals("SUBJECT_EXAM_RESULT_ANNOUNCEMENT") ||  dto.getCategory().equals("SUBJECT_EXAM_DATE_ANNOUNCEMENT") ){
+                newNoticeboardItem.getSubject().getStudents().forEach(student -> {
+                    try {
+                        mailService.sendNoticeboardMessage(student.getEmail(), "New noticeboard item", "");
+                    } catch (MessagingException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
+            //Ako je univerzitet, onda sve
+            else
+            {
+                studentService.getAll().forEach(student -> {
+                    try {
+                        mailService.sendNoticeboardMessage(student.getEmail(), "New noticeboard item", "");
+                    } catch (MessagingException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
+        }
 
         noticeboardItemRepository.save(newNoticeboardItem);
         return new ResponseEntity<>(true, HttpStatus.CREATED);
