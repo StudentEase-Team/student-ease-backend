@@ -71,6 +71,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.PUT, "/api/faq/item").hasAnyAuthority("ROLE_ADMIN", "ROLE_PROFESSOR")
                         .requestMatchers(HttpMethod.POST, "/api/login").anonymous()
                         .requestMatchers(HttpMethod.GET, "/api/whoami").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/subjects/passed/{year}").hasAuthority("ROLE_STUDENT")
+                        .requestMatchers(HttpMethod.GET, "/api/subjects/failed/{year}").hasAuthority("ROLE_STUDENT")
                 )
                 .headers(headers -> headers
                         .contentSecurityPolicy(csp -> csp

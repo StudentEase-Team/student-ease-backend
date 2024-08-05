@@ -1,11 +1,11 @@
 package rs.ftn.studenteaseteam.studentease.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -19,13 +19,16 @@ public class Student extends AbstractUser {
     private List<Role> roles;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(name="student_subjects",
         joinColumns = @JoinColumn(name="student_id", referencedColumnName="id"),
         inverseJoinColumns = @JoinColumn(name="subject_id", referencedColumnName="id"))
     private List<Subject> subjects;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<College> college;
+
+    private int year;
 
     public Student() {
         userRole = UserRole.STUDENT;
@@ -35,4 +38,8 @@ public class Student extends AbstractUser {
     public Collection<Role> getAuthorities() {
         return roles;
     }
+
+    @OneToMany(mappedBy = "student")
+    @JsonIgnore
+    private List<Grade> grades;
 }

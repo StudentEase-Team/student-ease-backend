@@ -19,14 +19,20 @@ public class Subject {
     private String name;
 
     @OneToMany
+    @JsonIgnore
     private List<NoticeboardItem> noticeboardItems;
 
-    @ManyToMany(mappedBy="subjects", fetch=FetchType.EAGER)
+    @ManyToMany(mappedBy="subjects", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Student> students;
+
+    private int year;
 
     @ManyToOne
     @JoinColumn(name="college_id")
     @JsonIgnore
     private College college;
+
+    @OneToMany(mappedBy="subject", fetch = FetchType.EAGER)
+    private List<Grade> grades;
 }
