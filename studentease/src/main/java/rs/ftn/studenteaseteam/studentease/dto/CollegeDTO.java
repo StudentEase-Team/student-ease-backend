@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import rs.ftn.studenteaseteam.studentease.bean.Noticeboard;
 import rs.ftn.studenteaseteam.studentease.bean.Student;
 import rs.ftn.studenteaseteam.studentease.bean.Subject;
 
@@ -18,7 +17,6 @@ public class CollegeDTO {
     private Long id;
     private String name;
     private String abbreviation;
-    private Noticeboard noticeboard;
     private List<Student> students;
     private List<Subject> subjects;
 }

@@ -2,13 +2,11 @@ package rs.ftn.studenteaseteam.studentease.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import rs.ftn.studenteaseteam.studentease.bean.College;
-import rs.ftn.studenteaseteam.studentease.bean.Noticeboard;
-import rs.ftn.studenteaseteam.studentease.bean.NoticeboardItem;
-import rs.ftn.studenteaseteam.studentease.bean.Subject;
+import rs.ftn.studenteaseteam.studentease.bean.*;
 import rs.ftn.studenteaseteam.studentease.dto.NoticeboardItemDTO;
+import rs.ftn.studenteaseteam.studentease.service.AdminService;
 import rs.ftn.studenteaseteam.studentease.service.CollegeService;
-import rs.ftn.studenteaseteam.studentease.service.NoticeboardService;
+import rs.ftn.studenteaseteam.studentease.service.ProfessorService;
 import rs.ftn.studenteaseteam.studentease.service.SubjectService;
 
 import java.time.LocalDateTime;
@@ -17,16 +15,19 @@ import java.util.Optional;
 
 @Component
 public class NoticeboardItemMapper {
-    private final NoticeboardService noticeboardService;
     private final SubjectService subjectService;
     private final CollegeService collegeService;
+    private final AdminService adminService;
+    private final ProfessorService professorService;
 
     @Autowired
-    public NoticeboardItemMapper(NoticeboardService noticeboardService, SubjectService subjectService, CollegeService collegeService) {
-        this.noticeboardService = noticeboardService;
+    public NoticeboardItemMapper(SubjectService subjectService, CollegeService collegeService, AdminService adminService, ProfessorService professorService) {
         this.subjectService = subjectService;
         this.collegeService = collegeService;
+        this.adminService = adminService;
+        this.professorService = professorService;
     }
+
 
     public NoticeboardItem mapIncomingDTOToObject(NoticeboardItemDTO dto) {
 
@@ -34,7 +35,7 @@ public class NoticeboardItemMapper {
         noticeboardItem.setId(null);
         noticeboardItem.setTitle(dto.getTitle());
         noticeboardItem.setMessage(dto.getMessage());
-        noticeboardItem.setUpdatedAt(LocalDateTime.now());
+        noticeboardItem.setUpdatedAt(new Date());
 
         if(dto.getSubjectId() != null) {
             Optional<Subject> potentialSubject = subjectService.getById(dto.getSubjectId());
@@ -66,10 +67,18 @@ public class NoticeboardItemMapper {
     public NoticeboardItemDTO mapIncomingObjectToDTO(NoticeboardItem item) {
 
         NoticeboardItemDTO dto = new NoticeboardItemDTO();
+        if(item.getCreatorRole().equals("ROLE_ADMIN")) {
+            Optional<Admin> admin = adminService.getById(item.getCreatorId());
+            admin.ifPresent(value -> dto.setCreatorName(value.getUsername()));
+        }
+        else if(item.getCreatorRole().equals("ROLE_PROFESSOR")) {
+            Optional<Professor> prof = professorService.getById(item.getCreatorId());
+            prof.ifPresent(value -> dto.setCreatorName(value.getUsername()));
+        }
         dto.setId(item.getId());
         dto.setTitle(item.getTitle());
         dto.setMessage(item.getMessage());
-        dto.setUpdatedAt(generateDateTime(item.getUpdatedAt()));
+        dto.setUpdatedAt(item.getUpdatedAt());
 
         switch(item.getCategory())
         {
@@ -100,10 +109,5 @@ public class NoticeboardItemMapper {
             dto.setCollegeName("");
         }
         return dto;
-    }
-
-    public String generateDateTime(LocalDateTime dt)
-    {
-        return dt.getDayOfMonth() + "." + dt.getMonthValue() + "." + dt.getYear() + ". " + dt.getHour() + ":" + dt.getMinute();
     }
 }

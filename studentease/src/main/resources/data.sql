@@ -43,7 +43,7 @@ INSERT INTO public.PROFESSOR_ROLES(role_id, professor_id) VALUES('2', 'aef51b3b-
 INSERT INTO public.COLLEGE (id, name, abbreviation, address, phone_number, email) VALUES ('1', 'Fakultet tehnickih nauka', 'FTN', 'Trg Dositeja Obradovica 6, Novi Sad', '+38121450810', 'studenti@ftn.com');
 INSERT INTO public.COLLEGE (id, name, abbreviation, address, phone_number, email) VALUES ('2', 'Pravni fakultet', 'PF', 'Trg Dositeja Obradovica 1, Novi Sad', '+381214853097', 'student@pravnifakultet.com');
 
-INSERT INTO public.NOTICEBOARD (id, enabled, college_id) VALUES('1', 'true', '1');
+-- INSERT INTO public.NOTICEBOARD (id, enabled, college_id) VALUES('1', 'true', '1');
 
 
 -- FTN
@@ -137,9 +137,8 @@ INSERT INTO public.FAQITEM (question, answer, is_answered, creator_id) VALUES('P
 INSERT INTO public.FAQITEM (question, answer, is_answered) VALUES('Gde mogu da uplatim  novac za polaganje ispita, ako sam zakasnio sa prijavom ispita na studentskom servisu?', '', 'False');
 
 
-INSERT INTO public.NOTICEBOARD_ITEM (id, title, message, updated_at, category, creator_id) VALUES ('1', 'Univeristy announcement', 'We are testing the new noticeboard', 'NOW()', '0', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
-INSERT INTO public.NOTICEBOARD_ITEM (id, title, message, updated_at, category, subject_id, creator_id) VALUES ('2', 'FTN Diplomski announcement', 'We are testing the new noticeboard', 'NOW()', '4', '19', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
-
+INSERT INTO public.NOTICEBOARD_ITEM (id, title, message, updated_at, category, creator_id, creator_role) VALUES ('1', 'Univeristy announcement', 'We are testing the new noticeboard', 'NOW()', '0', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630', 'ROLE_PROFESSOR');
+INSERT INTO public.NOTICEBOARD_ITEM (id, title, message, updated_at, category, subject_id, creator_id, creator_role, college_id) VALUES ('2', 'FTN Diplomski announcement', 'We are testing the new noticeboard', 'NOW()', '4', '19', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630', 'ROLE_PROFESSOR', '1');
 -- Student fakultet
 INSERT INTO public.STUDENT_COLLEGE (college_id, students_id) VALUES('1', 'ef6adb8d-4f53-4693-a71a-7689463e7da2');
 INSERT INTO public.STUDENT_COLLEGE (college_id, students_id) VALUES('1', 'a5590e9d-5999-40dc-9bdf-8151df5c7c4f');

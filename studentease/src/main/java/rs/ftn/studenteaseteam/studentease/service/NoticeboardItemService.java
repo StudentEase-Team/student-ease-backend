@@ -40,11 +40,6 @@ public class NoticeboardItemService {
         return noticeboardItemRepository.findById(id);
     }
 
-    /*public List<NoticeboardItem> getByNoticeboard(long noticeboardId)
-    {
-        return noticeboardItemRepository.findAll().stream().filter(item -> item.getNoticeboard().getId() == noticeboardId).toList();
-    }*/
-
     public List<NoticeboardItem> getAll() {
         return noticeboardItemRepository.findAll();
     }
@@ -57,6 +52,7 @@ public class NoticeboardItemService {
         AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         NoticeboardItem newNoticeboardItem = mapper.mapIncomingDTOToObject(dto);
         newNoticeboardItem.setCreatorId(user.getId());
+        newNoticeboardItem.setCreatorRole(user.getUserRole().name());
 
         if(dto.shouldNotify)
         {

@@ -21,9 +21,6 @@ public class College {
     private String phoneNumber;
     private String email;
 
-    @OneToOne(mappedBy="college")
-    private Noticeboard noticeboard;
-
     @ManyToMany(mappedBy="college", fetch=FetchType.EAGER)
     @JsonIgnore
     private List<Student> students;

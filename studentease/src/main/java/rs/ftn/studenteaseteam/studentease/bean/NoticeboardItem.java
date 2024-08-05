@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -31,9 +32,10 @@ public class NoticeboardItem {
     private Long id;
     private String title;
     private String message;
-    private LocalDateTime updatedAt;
+    private Date updatedAt;
     private NoticeboardItemCategory category;
     private UUID creatorId;
+    private String creatorRole;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="subject_id")
