@@ -108,6 +108,5 @@ public class AuthService {
 
         AbstractUser user = (AbstractUser) authentication.getPrincipal();
         return new ResponseEntity<>("Role: [" + user.getUserRole() + "] \nEmail: [" + user.getEmail() + "] \nID: [" + user.getId() + "]", HttpStatus.OK);
-
     }
 }
