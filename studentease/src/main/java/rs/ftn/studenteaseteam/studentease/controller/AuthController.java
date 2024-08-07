@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import rs.ftn.studenteaseteam.studentease.dto.LoginRequestDTO;
+import rs.ftn.studenteaseteam.studentease.dto.RegistrationRequestDTO;
 import rs.ftn.studenteaseteam.studentease.dto.UserStateDTO;
 import rs.ftn.studenteaseteam.studentease.service.AuthService;
 
@@ -24,6 +25,11 @@ public class AuthController {
     @PostMapping("/api/login")
     public ResponseEntity<UserStateDTO> login(@RequestBody LoginRequestDTO dto) {
         return authService.login(dto);
+    }
+
+    @PostMapping("/api/register")
+    public ResponseEntity<Boolean> register(@RequestBody RegistrationRequestDTO dto) {
+        return authService.register(dto);
     }
 
     @GetMapping("/api/whoami")

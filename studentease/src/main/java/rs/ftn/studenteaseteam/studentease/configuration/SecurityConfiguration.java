@@ -70,6 +70,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.DELETE, "/api/noticeboard/item/{id}").hasAnyAuthority("ROLE_ADMIN", "ROLE_PROFESSOR")
                         .requestMatchers(HttpMethod.PUT, "/api/faq/item").hasAnyAuthority("ROLE_ADMIN", "ROLE_PROFESSOR")
                         .requestMatchers(HttpMethod.POST, "/api/login").anonymous()
+                        .requestMatchers(HttpMethod.POST, "/api/register").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/whoami").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/subjects/passed/{year}").hasAuthority("ROLE_STUDENT")
                         .requestMatchers(HttpMethod.GET, "/api/subjects/failed/{year}").hasAuthority("ROLE_STUDENT")
