@@ -10,12 +10,14 @@ import java.util.Optional;
 
 @Service
 public class CollegeService {
-    private CollegeRepository collegeRepository;
+    private final CollegeRepository collegeRepository;
 
     @Autowired
     public CollegeService(CollegeRepository collegeRepository) { this.collegeRepository = collegeRepository; }
 
     public Optional<College> getById(Long id) { return collegeRepository.findById(id); }
+
+    public College getByName(String name) { return collegeRepository.findByName(name); }
 
     public List<College> getAll() { return collegeRepository.findAll(); }
 

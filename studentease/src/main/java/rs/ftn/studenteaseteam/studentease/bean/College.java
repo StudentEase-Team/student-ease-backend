@@ -21,9 +21,13 @@ public class College {
     private String phoneNumber;
     private String email;
 
-    @ManyToMany(mappedBy="college", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="college", fetch=FetchType.EAGER)
     @JsonIgnore
     private List<Student> students;
+
+    @OneToMany(mappedBy="college", fetch=FetchType.EAGER)
+    @JsonIgnore
+    private List<Professor> professors;
 
     @OneToMany(mappedBy="college", fetch = FetchType.EAGER)
     private List<Subject> subjects;

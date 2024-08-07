@@ -18,6 +18,9 @@ public class Professor extends AbstractUser {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private College college;
+
     public Professor(){
         userRole = UserRole.PROFESSOR;
     }

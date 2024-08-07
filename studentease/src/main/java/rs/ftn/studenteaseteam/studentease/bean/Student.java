@@ -25,8 +25,8 @@ public class Student extends AbstractUser {
         inverseJoinColumns = @JoinColumn(name="subject_id", referencedColumnName="id"))
     private List<Subject> subjects;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<College> college;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private College college;
 
     private int year;
 

@@ -51,8 +51,7 @@ public class SubjectService {
                         found = true;
                 }
                 if(!found)
-                    for(College c : currentStudent.getCollege())
-                        if(Objects.equals(c.getId(), s.getCollege().getId()) && (year.equals("all") || s.getYear() == Integer.parseInt(year)))
+                        if(Objects.equals(s.getCollege().getId(), s.getCollege().getId()) && (year.equals("all") || s.getYear() == Integer.parseInt(year)))
                             failedSubjects.add(new SubjectGradeDTO(s.getName(), -1, new Date()));
             }
         }
