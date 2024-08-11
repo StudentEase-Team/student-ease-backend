@@ -6,10 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import rs.ftn.studenteaseteam.studentease.bean.AbstractUser;
-import rs.ftn.studenteaseteam.studentease.bean.FAQItem;
-import rs.ftn.studenteaseteam.studentease.bean.NoticeboardItem;
-import rs.ftn.studenteaseteam.studentease.bean.Student;
+import rs.ftn.studenteaseteam.studentease.bean.*;
 import rs.ftn.studenteaseteam.studentease.dto.NoticeboardItemDTO;
 import rs.ftn.studenteaseteam.studentease.mapper.NoticeboardItemMapper;
 import rs.ftn.studenteaseteam.studentease.repository.NoticeboardItemRepository;
@@ -60,19 +57,28 @@ public class NoticeboardItemService {
             if(dto.getCategory().equals("COLLEGE_ANNOUNCEMENT") || dto.getCategory().equals("COLLEGE_GUEST_ANNOUNCEMENT")){
                 newNoticeboardItem.getCollege().getStudents().forEach(student -> {
                     try {
-                        mailService.sendNoticeboardMessage(student.getEmail(), "New noticeboard item", "");
+                        mailService.sendNoticeboardMessage(student.getEmail(), "New alert: " + dto.title, dto.title + "\n" + dto.message);
                     } catch (MessagingException e) {
                         throw new RuntimeException(e);
                     }
                 });
             }
-            //Ako je predmet, onda sve koji slusaju taj predmet
+            //Ako je predmet, onda sve koji slusaju taj predmet i koji nisu polozili
             else if(dto.getCategory().equals("SUBJECT_ANNOUNCEMENT") || dto.getCategory().equals("SUBJECT_EXAM_RESULT_ANNOUNCEMENT") ||  dto.getCategory().equals("SUBJECT_EXAM_DATE_ANNOUNCEMENT") ){
                 newNoticeboardItem.getSubject().getStudents().forEach(student -> {
                     try {
-                        mailService.sendNoticeboardMessage(student.getEmail(), "New noticeboard item", "");
+                        boolean found = false;
+                        for(Grade grade : newNoticeboardItem.getSubject().getGrades())
+                        {
+                            if (grade.getStudent().getId() == student.getId()) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if(!found)
+                            mailService.sendNoticeboardMessage(student.getEmail(), "New alert: " + dto.title, dto.title + "\n" + dto.message);
                     } catch (MessagingException e) {
-                        throw new RuntimeException(e);
+                        System.out.println(e.getMessage());
                     }
                 });
             }
@@ -81,7 +87,7 @@ public class NoticeboardItemService {
             {
                 studentService.getAll().forEach(student -> {
                     try {
-                        mailService.sendNoticeboardMessage(student.getEmail(), "New noticeboard item", "");
+                        mailService.sendNoticeboardMessage(student.getEmail(), "New alert: " + dto.title, dto.title + "\n" + dto.message);
                     } catch (MessagingException e) {
                         throw new RuntimeException(e);
                     }

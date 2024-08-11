@@ -19,7 +19,7 @@ public class MailService {
     }
 
     private static final String newNoticeboardMessage = """
-            Hello, there is a new alert on the noticeboard.
+            Hello, there is a new alert on the noticeboard:
             """;
 
     private void sendEmail(String to, String subject, String body) throws MessagingException {
