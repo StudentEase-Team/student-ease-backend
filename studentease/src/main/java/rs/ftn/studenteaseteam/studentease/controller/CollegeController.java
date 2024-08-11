@@ -1,9 +1,11 @@
 package rs.ftn.studenteaseteam.studentease.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rs.ftn.studenteaseteam.studentease.bean.College;
+import rs.ftn.studenteaseteam.studentease.dto.CollegeDTO;
 import rs.ftn.studenteaseteam.studentease.service.CollegeService;
 
 import java.util.List;
@@ -18,7 +20,7 @@ public class CollegeController {
     }
 
     @GetMapping("/api/college")
-    public List<College> getAllColleges() {
-        return collegeService.getAll();
+    public ResponseEntity<List<CollegeDTO>> getAllColleges() {
+        return collegeService.getAllColleges();
     }
 }

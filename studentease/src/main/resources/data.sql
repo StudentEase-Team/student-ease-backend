@@ -25,6 +25,15 @@ INSERT INTO public.ROLE (name) VALUES ('ROLE_ADMIN');
 --    }
 
 
+--public enum MaterialType {
+--0        VIDEO_MATERIAL,
+--1        PRESENTATION,
+--2        DOCUMENT,
+--3        PROGRAM,
+--4        OTHER
+--    }
+
+
 INSERT INTO public.ADMIN (id, email, password, is_enabled, is_locked, credentials_updated_at, user_role) VALUES ('b28c43a1-9faf-41ab-aab0-aae654a30833', 'admin@studentease.com', '$2a$10$P/aKCRFdwl.7MIxbohlZJOR74RCBmQY2YVkV43zjjnitKHKSIYJv.', 'true', 'false', 'NOW()', '2');
 INSERT INTO public.ADMIN_ROLES(role_id, admin_id) VALUES('3', 'b28c43a1-9faf-41ab-aab0-aae654a30833');
 
@@ -43,29 +52,42 @@ INSERT INTO public.PROFESSOR_ROLES(role_id, professor_id) VALUES('2', '2f7a8412-
 INSERT INTO public.PROFESSOR (id, email, first_name, last_name, password, is_enabled, is_locked, credentials_updated_at, user_role) VALUES ('aef51b3b-c043-4ed9-89d5-14883850e170', 'profesor2.ftn@uns.ac.rs', 'Profesorko', 'Drugakovic', '$2a$10$P/aKCRFdwl.7MIxbohlZJOR74RCBmQY2YVkV43zjjnitKHKSIYJv.', 'true', 'false', 'NOW()', '1');
 INSERT INTO public.PROFESSOR_ROLES(role_id, professor_id) VALUES('2', 'aef51b3b-c043-4ed9-89d5-14883850e170');
 
+INSERT INTO public.PROFESSOR (id, email, first_name, last_name, password, is_enabled, is_locked, credentials_updated_at, user_role) VALUES ('661a0a8c-d334-4902-a427-6ed07e509ba7', 'profesor3.pf@uns.ac.rs', 'Profesorko', 'Trecakovic', '$2a$10$P/aKCRFdwl.7MIxbohlZJOR74RCBmQY2YVkV43zjjnitKHKSIYJv.', 'true', 'false', 'NOW()', '1');
+INSERT INTO public.PROFESSOR_ROLES(role_id, professor_id) VALUES('2', '661a0a8c-d334-4902-a427-6ed07e509ba7');
+
 -- INSERT INTO public.NOTICEBOARD (id, enabled, college_id) VALUES('1', 'true', '1');
 
 
 -- FTN
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('1', '1', 'Analiza 1', '1');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('2', '1', 'Analiza 2', '1');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('3', '1', 'Algebra', '1');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('4', '1', 'Verovatnoca', '1');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('1', '1', 'Analiza 1', '1', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('2', '1', 'Analiza 2', '1', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('3', '1', 'Algebra', '1', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('4', '1', 'Verovatnoca', '1', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
 
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('5', '1', 'Modeliranje i simulacija sistema', '2');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('6', '1', 'Logicko projektovanje sistema', '2');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('7', '1', 'Web programiranje', '2');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('8', '1', 'Objektno programiranje', '2');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('5', '1', 'Modeliranje i simulacija sistema', '2', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('6', '1', 'Logicko projektovanje sistema', '2', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('7', '1', 'Web programiranje', '2', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('8', '1', 'Objektno programiranje', '2', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
 
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('9', '1', 'Operativni sistemi', '3');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('10', '1', 'Sistemi automatskog upravljanja', '3');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('11', '1', 'Numericki algoritmi i numericki softver', '3');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('12', '1', 'Softverska podrska u realnom vremenu', '3');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('9', '1', 'Operativni sistemi', '3', 'aef51b3b-c043-4ed9-89d5-14883850e170');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('10', '1', 'Sistemi automatskog upravljanja', '3', 'aef51b3b-c043-4ed9-89d5-14883850e170');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('11', '1', 'Numericki algoritmi i numericki softver', '3', 'aef51b3b-c043-4ed9-89d5-14883850e170');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('12', '1', 'Softverska podrska u realnom vremenu', '3', 'aef51b3b-c043-4ed9-89d5-14883850e170');
 
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('13', '1', 'Mobilne aplikcije', '4');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('14', '1', 'Internet mreze', '4');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('15', '1', 'Bezbednost', '4');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('19', '1', 'Diplomski rad', '4');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('13', '1', 'Mobilne aplikcije', '4', 'aef51b3b-c043-4ed9-89d5-14883850e170');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('14', '1', 'Internet mreze', '4', 'aef51b3b-c043-4ed9-89d5-14883850e170');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('15', '1', 'Bezbednost', '4', 'aef51b3b-c043-4ed9-89d5-14883850e170');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('19', '1', 'Diplomski rad', '4', 'aef51b3b-c043-4ed9-89d5-14883850e170');
+
+-- Analiza 1 materijali
+
+INSERT INTO public.MATERIAL (material_type, id, subject_id, description, about, name, url) VALUES (2, '1', '1', 'Dokument u kome se obradjuje konvergencija nizova', 'Granicni procesi', 'Vezbe 1', 'https://manaliza1.wordpress.com/wp-content/uploads/2022/10/i.1-1.pdf');
+INSERT INTO public.MATERIAL (material_type, id, subject_id, description, about, name, url) VALUES (2, '2', '1', 'Dokument u kome se obradjuje teorema o ukljestenju', 'Granicni procesi', 'Vezbe 2', 'https://manaliza1.wordpress.com/wp-content/uploads/2022/10/i.2-1.pdf');
+INSERT INTO public.MATERIAL (material_type, id, subject_id, description, about, name, url) VALUES (2, '3', '1', 'Dokument u kome se obradjuje granicna vrednost rekurzivnih nizova', 'Granicni procesi', 'Vezbe 3', 'https://manaliza1.wordpress.com/wp-content/uploads/2022/10/i.3-1.pdf');
+INSERT INTO public.MATERIAL (material_type, id, subject_id, description, about, name, url) VALUES (2, '4', '1', 'Dokument u kome se obradjuje kosijevi nizovi', 'Granicni procesi', 'Vezbe 4', 'https://manaliza1.wordpress.com/wp-content/uploads/2022/10/i.4-1.pdf');
+INSERT INTO public.MATERIAL (material_type, id, subject_id, description, about, name, url) VALUES (2, '5', '1', 'Dokument u kome se obradjuje granicni procesi funkcija', 'Granicni procesi', 'Vezbe 5', 'https://manaliza1.wordpress.com/wp-content/uploads/2022/10/i.5-1.pdf');
+INSERT INTO public.MATERIAL (material_type, id, subject_id, description, about, name, url) VALUES (2, '6', '1', 'Dokument u kome se obradjuje granicni procesi funkcija (neprekidnost)', 'Granicni procesi', 'Vezbe 6', 'https://manaliza1.wordpress.com/wp-content/uploads/2022/10/i.6-1.pdf');
+
 
 -- Ognjen slusa sve predmete (sve iz 4 a ostale polozio)
 INSERT INTO public.STUDENT_SUBJECTS (student_id, subject_id) VALUES('ef6adb8d-4f53-4693-a71a-7689463e7da2', '1');
@@ -128,9 +150,9 @@ INSERT INTO public.GRADE (id, student_id, subject_id, value, date) VALUES('19', 
 
 
 -- PRAVNI
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('21', '2', 'Rimsko pravo 1', '1');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('22', '2', 'Rimsko pravo 2', '2');
-INSERT INTO public.SUBJECT (id, college_id, name, year) VALUES('29', '2', 'Diplomski rad', '4');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('21', '2', 'Rimsko pravo 1', '1', '661a0a8c-d334-4902-a427-6ed07e509ba7');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('22', '2', 'Rimsko pravo 2', '2', '661a0a8c-d334-4902-a427-6ed07e509ba7');
+INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('29', '2', 'Diplomski rad', '4', '661a0a8c-d334-4902-a427-6ed07e509ba7');
 
 INSERT INTO public.FAQITEM (question, answer, is_answered, creator_id) VALUES('Dobar dan, zanima me kada pocinje upis na fakultet?', 'Postovani, upis na fakultet pocinje nakon prijemnog ispita, 25. jula.', 'True', '2f7a8412-fc0d-415e-83ae-ba8ff75b3630');
 INSERT INTO public.FAQITEM (question, answer, is_answered, creator_id) VALUES('Postovanje, interesuje me sta je sve potrebno od dokumentacije za konkurs za studentsku stipendiju', 'Dobar dan, potrebni su vam papiri iz gradske kuce o mesecnim prihodima, kao i potvrda da ste redovan student i ukoliko imate brata/sestru moracete dostaviti istu potvrdu i za njih.', 'True', 'aef51b3b-c043-4ed9-89d5-14883850e170');

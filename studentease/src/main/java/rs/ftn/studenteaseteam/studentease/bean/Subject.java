@@ -35,4 +35,22 @@ public class Subject {
 
     @OneToMany(mappedBy="subject", fetch = FetchType.EAGER)
     private List<Grade> grades;
+
+    @OneToMany(mappedBy="subject", fetch = FetchType.EAGER)
+    private List<Material> materials;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Professor professor;
+
+    public Subject(Long id, String name, List<NoticeboardItem> noticeboardItems, List<Student> students, int year, College college, List<Grade> grades, List<Material> materials, Professor professor) {
+        this.id = id;
+        this.name = name;
+        this.noticeboardItems = noticeboardItems;
+        this.students = students;
+        this.year = year;
+        this.college = college;
+        this.grades = grades;
+        this.materials = materials;
+        this.professor = professor;
+    }
 }

@@ -17,6 +17,6 @@ public class CollegeDTO {
     private Long id;
     private String name;
     private String abbreviation;
-    private List<Student> students;
-    private List<Subject> subjects;
+    //private List<Student> students;
+    private List<SubjectDTO> subjects;
 }

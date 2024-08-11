@@ -72,6 +72,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/login").anonymous()
                         .requestMatchers(HttpMethod.POST, "/api/register").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/whoami").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/materials/{id}").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/subjects/passed/{year}").hasAuthority("ROLE_STUDENT")
                         .requestMatchers(HttpMethod.GET, "/api/subjects/failed/{year}").hasAuthority("ROLE_STUDENT")
                 )
