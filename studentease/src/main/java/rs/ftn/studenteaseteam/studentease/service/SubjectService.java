@@ -34,7 +34,7 @@ public class SubjectService {
             if(s.getGrades() != null)
                 for(Grade g : s.getGrades())
                     if(g.getStudent() != null && g.getStudent().getId().equals(currentStudent.getId()) && (year.equals("all") || s.getYear() == Integer.parseInt(year)))
-                        passedSubjects.add(new SubjectGradeDTO(s.getName(), g.getValue(), g.getDate()));
+                        passedSubjects.add(new SubjectGradeDTO(s.getId(), s.getName(), g.getValue(), g.getDate()));
         }
         return ResponseEntity.ok(passedSubjects);
     }
@@ -47,12 +47,14 @@ public class SubjectService {
             if(s.getGrades() != null) {
                 boolean found = false;
                 for (Grade g : s.getGrades()) {
-                    if (g.getStudent() != null && g.getStudent().getId().equals(currentStudent.getId()) && (year.equals("all") || s.getYear() == Integer.parseInt(year)))
+                    if (g.getStudent() != null && g.getStudent().getId().equals(currentStudent.getId()) && (year.equals("all") || s.getYear() == Integer.parseInt(year))) {
                         found = true;
+                        break;
+                    }
                 }
                 if(!found)
-                        if(Objects.equals(s.getCollege().getId(), s.getCollege().getId()) && (year.equals("all") || s.getYear() == Integer.parseInt(year)))
-                            failedSubjects.add(new SubjectGradeDTO(s.getName(), -1, new Date()));
+                        if(s.getCollege().getId() == currentStudent.getCollege().getId() && (year.equals("all") || s.getYear() == Integer.parseInt(year)))
+                            failedSubjects.add(new SubjectGradeDTO(s.getId(), s.getName(), -1, new Date()));
             }
         }
         return ResponseEntity.ok(failedSubjects);

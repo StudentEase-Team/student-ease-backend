@@ -14,7 +14,7 @@ public class College {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String name;
     private String abbreviation;
     private String address;
