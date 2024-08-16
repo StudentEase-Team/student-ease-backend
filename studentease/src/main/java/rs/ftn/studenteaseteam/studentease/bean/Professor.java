@@ -24,6 +24,9 @@ public class Professor extends AbstractUser {
     @OneToMany(mappedBy = "professor", fetch = FetchType.EAGER)
     private List<Subject> subjects;
 
+    @OneToMany(mappedBy = "professor")
+    private List<Obligation> obligations;
+
     public Professor(){
         userRole = UserRole.PROFESSOR;
     }

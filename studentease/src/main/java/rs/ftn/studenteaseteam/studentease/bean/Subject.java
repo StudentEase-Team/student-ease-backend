@@ -42,7 +42,10 @@ public class Subject {
     @ManyToOne(fetch = FetchType.EAGER)
     private Professor professor;
 
-    public Subject(Long id, String name, List<NoticeboardItem> noticeboardItems, List<Student> students, int year, College college, List<Grade> grades, List<Material> materials, Professor professor) {
+    @OneToMany(mappedBy = "subject")
+    private List<Obligation> obligations;
+
+    public Subject(Long id, String name, List<NoticeboardItem> noticeboardItems, List<Student> students, int year, College college, List<Grade> grades, List<Material> materials, Professor professor, List<Obligation> obligations) {
         this.id = id;
         this.name = name;
         this.noticeboardItems = noticeboardItems;
@@ -52,5 +55,6 @@ public class Subject {
         this.grades = grades;
         this.materials = materials;
         this.professor = professor;
+        this.obligations = obligations;
     }
 }

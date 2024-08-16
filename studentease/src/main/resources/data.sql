@@ -121,6 +121,7 @@ INSERT INTO public.STUDENT_SUBJECTS (student_id, subject_id) VALUES('a5590e9d-59
 INSERT INTO public.STUDENT_SUBJECTS (student_id, subject_id) VALUES('a5590e9d-5999-40dc-9bdf-8151df5c7c4f', '7');
 INSERT INTO public.STUDENT_SUBJECTS (student_id, subject_id) VALUES('a5590e9d-5999-40dc-9bdf-8151df5c7c4f', '8');
 
+
 -- Ocene student 1
 INSERT INTO public.GRADE (id, student_id, subject_id, value, date) VALUES('1', 'ef6adb8d-4f53-4693-a71a-7689463e7da2', '1', '6', '2020-01-15');
 INSERT INTO public.GRADE (id, student_id, subject_id, value, date) VALUES('2', 'ef6adb8d-4f53-4693-a71a-7689463e7da2', '2', '7', '2020-02-15');
@@ -148,6 +149,11 @@ INSERT INTO public.GRADE (id, student_id, subject_id, value, date) VALUES('17', 
 INSERT INTO public.GRADE (id, student_id, subject_id, value, date) VALUES('18', 'a5590e9d-5999-40dc-9bdf-8151df5c7c4f', '5', '10', '2022-06-15');
 INSERT INTO public.GRADE (id, student_id, subject_id, value, date) VALUES('19', 'a5590e9d-5999-40dc-9bdf-8151df5c7c4f', '6', '10', '2022-07-15');
 
+-- Obligacije za studenta 1
+insert into public.OBLIGATION (end_date, id, start_date, subject_id, student_id, description, title, professor_id, category) VALUES('NOW()',1, 'NOW()',13, 'ef6adb8d-4f53-4693-a71a-7689463e7da2', 'Opis ovde', 'Naslov ovde', 'aef51b3b-c043-4ed9-89d5-14883850e170', 0);
+insert into public.OBLIGATION (end_date, id, start_date, subject_id, student_id, description, title, professor_id, category) VALUES('NOW()',2, 'NOW()',14, 'ef6adb8d-4f53-4693-a71a-7689463e7da2', 'Opis ovde', 'Naslov ovde', 'aef51b3b-c043-4ed9-89d5-14883850e170', 0);
+insert into public.OBLIGATION (end_date, id, start_date, subject_id, student_id, description, title, professor_id, category) VALUES('NOW()',3, 'NOW()',19, 'ef6adb8d-4f53-4693-a71a-7689463e7da2', 'Opis ovde', 'Naslov ovde', 'aef51b3b-c043-4ed9-89d5-14883850e170', 0);
+-- Obligacije za studenta 2
 
 -- PRAVNI
 INSERT INTO public.SUBJECT (id, college_id, name, year, professor_id) VALUES('21', '2', 'Rimsko pravo 1', '1', '661a0a8c-d334-4902-a427-6ed07e509ba7');

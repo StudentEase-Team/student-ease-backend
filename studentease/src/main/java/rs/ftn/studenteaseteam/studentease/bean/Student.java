@@ -42,4 +42,7 @@ public class Student extends AbstractUser {
     @OneToMany(mappedBy = "student")
     @JsonIgnore
     private List<Grade> grades;
+
+    @OneToMany(mappedBy = "student")
+    private List<Obligation> obligations;
 }

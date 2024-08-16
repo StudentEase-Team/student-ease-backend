@@ -73,6 +73,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/register").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/whoami").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/materials/{id}").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/obligations/student").hasAuthority("ROLE_STUDENT")
+                        .requestMatchers(HttpMethod.GET, "/api/obligations/professor").hasAuthority("ROLE_PROFESSOR")
                         .requestMatchers(HttpMethod.GET, "/api/subjects/passed/{year}").hasAuthority("ROLE_STUDENT")
                         .requestMatchers(HttpMethod.GET, "/api/subjects/failed/{year}").hasAuthority("ROLE_STUDENT")
                 )
