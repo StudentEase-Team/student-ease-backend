@@ -150,9 +150,9 @@ INSERT INTO public.GRADE (id, student_id, subject_id, value, date) VALUES('18', 
 INSERT INTO public.GRADE (id, student_id, subject_id, value, date) VALUES('19', 'a5590e9d-5999-40dc-9bdf-8151df5c7c4f', '6', '10', '2022-07-15');
 
 -- Obligacije za studenta 1
-insert into public.OBLIGATION (end_date, id, start_date, subject_id, student_id, description, title, professor_id, category) VALUES('NOW()',1, 'NOW()',13, 'ef6adb8d-4f53-4693-a71a-7689463e7da2', 'Opis ovde', 'Naslov ovde', 'aef51b3b-c043-4ed9-89d5-14883850e170', 0);
-insert into public.OBLIGATION (end_date, id, start_date, subject_id, student_id, description, title, professor_id, category) VALUES('NOW()',2, 'NOW()',14, 'ef6adb8d-4f53-4693-a71a-7689463e7da2', 'Opis ovde', 'Naslov ovde', 'aef51b3b-c043-4ed9-89d5-14883850e170', 0);
-insert into public.OBLIGATION (end_date, id, start_date, subject_id, student_id, description, title, professor_id, category) VALUES('NOW()',3, 'NOW()',19, 'ef6adb8d-4f53-4693-a71a-7689463e7da2', 'Opis ovde', 'Naslov ovde', 'aef51b3b-c043-4ed9-89d5-14883850e170', 0);
+insert into public.OBLIGATION (end_date, id, start_date, subject_id, student_id, description, title, professor_id, category) VALUES('2024-08-16 16:30:44.619000',1, '2024-08-16 15:00:44.619000',13, 'ef6adb8d-4f53-4693-a71a-7689463e7da2', 'Opis ovde', 'Naslov ovde', 'aef51b3b-c043-4ed9-89d5-14883850e170', 0);
+insert into public.OBLIGATION (end_date, id, start_date, subject_id, student_id, description, title, professor_id, category) VALUES('2024-08-16 11:00:44.619000',2, '2024-08-16 08:30:44.619000',14, 'ef6adb8d-4f53-4693-a71a-7689463e7da2', 'Opis ovde', 'Naslov ovde', 'aef51b3b-c043-4ed9-89d5-14883850e170', 1);
+insert into public.OBLIGATION (end_date, id, start_date, subject_id, student_id, description, title, professor_id, category) VALUES('2024-08-17 17:30:44.619000',3, '2024-08-17 16:30:44.619000',19, 'ef6adb8d-4f53-4693-a71a-7689463e7da2', 'Opis ovde', 'Naslov ovde', 'aef51b3b-c043-4ed9-89d5-14883850e170', 2);
 -- Obligacije za studenta 2
 
 -- PRAVNI
