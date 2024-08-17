@@ -10,19 +10,24 @@ import rs.ftn.studenteaseteam.studentease.bean.Obligation;
 import rs.ftn.studenteaseteam.studentease.dto.ObligationDTO;
 import rs.ftn.studenteaseteam.studentease.mapper.ObligationMapper;
 import rs.ftn.studenteaseteam.studentease.repository.ObligationRepository;
-
-import java.util.ArrayList;
 import java.util.List;
+import org.springframework.http.MediaType;
+import org.springframework.http.HttpHeaders;
+import rs.ftn.studenteaseteam.studentease.util.WriteObligationsICS;
+import java.util.ArrayList;
 
 @Service
 public class ObligationService {
     private final ObligationRepository obligationRepository;
     private final ObligationMapper obligationMapper;
+    private final WriteObligationsICS writeObligationsICS;
+
 
     @Autowired
-    public ObligationService(ObligationRepository obligationRepository, ObligationMapper obligationMapper) {
+    public ObligationService(ObligationRepository obligationRepository, ObligationMapper obligationMapper, WriteObligationsICS writeObligationsICS) {
         this.obligationRepository = obligationRepository;
         this.obligationMapper = obligationMapper;
+        this.writeObligationsICS = writeObligationsICS;
     }
 
     public Obligation getById(Long id) { return obligationRepository.findById(id).orElse(null); }
@@ -58,5 +63,29 @@ public class ObligationService {
         catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public ResponseEntity<byte[]> downloadObligationsForStudentIcs() {
+        AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Obligation> obligations = obligationRepository.findByStudentId(user.getId());
+
+        byte[] icsData = writeObligationsICS.writeObligationsToIcs(new ArrayList<>(obligations));
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=obligations_student.ics")
+                .contentType(MediaType.valueOf("text/calendar"))
+                .body(icsData);
+    }
+
+    public ResponseEntity<byte[]> downloadObligationsForProfessorIcs() {
+        AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Obligation> obligations = obligationRepository.findByProfessorId(user.getId());
+
+        byte[] icsData = writeObligationsICS.writeObligationsToIcs(new ArrayList<>(obligations));
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=obligations_professor.ics")
+                .contentType(MediaType.valueOf("text/calendar"))
+                .body(icsData);
     }
 }

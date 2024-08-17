@@ -1,10 +1,10 @@
 package rs.ftn.studenteaseteam.studentease.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rs.ftn.studenteaseteam.studentease.bean.Obligation;
 import rs.ftn.studenteaseteam.studentease.dto.ObligationDTO;
 import rs.ftn.studenteaseteam.studentease.service.ObligationService;
 
@@ -27,5 +27,15 @@ public class ObligationController {
     @GetMapping("/api/obligations/professor")
     public ResponseEntity<List<ObligationDTO>> getObligationsByProfessor() {
         return obligationService.getObligationsByProfessor();
+    }
+
+    @GetMapping("/api/obligations/student/download")
+    public ResponseEntity<byte[]> downloadObligationsForStudent() {
+        return obligationService.downloadObligationsForStudentIcs();
+    }
+
+    @GetMapping("/api/obligations/professor/download")
+    public ResponseEntity<byte[]> downloadObligationsForProfessor() {
+        return obligationService.downloadObligationsForProfessorIcs();
     }
 }
