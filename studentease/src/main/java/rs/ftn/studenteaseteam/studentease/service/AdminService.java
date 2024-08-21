@@ -20,12 +20,4 @@ public class AdminService {
     public Optional<Admin> getById(UUID id) {
         return adminRepository.findById(id);
     }
-
-    public List<Admin> getAll() {
-        return adminRepository.findAll();
-    }
-
-    public Admin save(Admin admin) {
-        return adminRepository.save(admin);
-    }
 }

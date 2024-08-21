@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import rs.ftn.studenteaseteam.studentease.bean.Subject;
 import rs.ftn.studenteaseteam.studentease.dto.SubjectGradeDTO;
+import rs.ftn.studenteaseteam.studentease.service.ResponseEntityService;
 import rs.ftn.studenteaseteam.studentease.service.SubjectService;
 
 import java.util.List;
@@ -14,17 +15,21 @@ import java.util.List;
 @RestController
 public class SubjectController {
     private final SubjectService subjectService;
+    private final ResponseEntityService responseEntityService;
 
     @Autowired
-    public SubjectController(SubjectService subjectService) { this.subjectService = subjectService; }
+    public SubjectController(SubjectService subjectService, ResponseEntityService responseEntityService) {
+        this.subjectService = subjectService;
+        this.responseEntityService = responseEntityService;
+    }
 
     @GetMapping("/api/subjects/passed/{year}")
     public ResponseEntity<List<SubjectGradeDTO>> getPassedSubjects(@PathVariable String year) {
-        return subjectService.getPassedSubjectsByYear(year);
+        return responseEntityService.getResponse(subjectService.getPassedSubjectsByYear(year));
     }
 
     @GetMapping("/api/subjects/failed/{year}")
     public ResponseEntity<List<SubjectGradeDTO>> getFailedSubjects(@PathVariable String year) {
-        return subjectService.getFailedSubjectsByYear(year);
+        return responseEntityService.getResponse(subjectService.getFailedSubjectsByYear(year));
     }
 }

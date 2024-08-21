@@ -30,62 +30,49 @@ public class ObligationService {
         this.writeObligationsICS = writeObligationsICS;
     }
 
-    public Obligation getById(Long id) { return obligationRepository.findById(id).orElse(null); }
-
-    public List<Obligation> getAll() { return obligationRepository.findAll(); }
-
-    public Obligation save(Obligation obligation) { return obligationRepository.save(obligation); }
-
-
-    public ResponseEntity<List<ObligationDTO>> getObligationsByStudent() {
+    public List<ObligationDTO> getObligationsByStudent() {
         ArrayList<ObligationDTO> dtos = new ArrayList<>();
         try {
             AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             for(Obligation o : obligationRepository.findByStudentId(user.getId())) {
                 dtos.add(obligationMapper.mapIncomingObjectToDTO(o));
             }
-            return new ResponseEntity<>(dtos, HttpStatus.OK);
+            if(dtos.isEmpty())
+                return null;
+            return dtos;
         }
         catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return null;
         }
     }
 
-    public ResponseEntity<List<ObligationDTO>> getObligationsByProfessor() {
+    public List<ObligationDTO> getObligationsByProfessor() {
         ArrayList<ObligationDTO> dtos = new ArrayList<>();
         try {
             AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             for(Obligation o : obligationRepository.findByProfessorId(user.getId())) {
                 dtos.add(obligationMapper.mapIncomingObjectToDTO(o));
             }
-            return new ResponseEntity<>(dtos, HttpStatus.OK);
+            if(dtos.isEmpty())
+                return null;
+            return dtos;
         }
         catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return null;
         }
     }
 
-    public ResponseEntity<byte[]> downloadObligationsForStudentIcs() {
+    public byte[] downloadObligationsForStudentIcs() {
         AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Obligation> obligations = obligationRepository.findByStudentId(user.getId());
 
-        byte[] icsData = writeObligationsICS.writeObligationsToIcs(new ArrayList<>(obligations));
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=obligations_student.ics")
-                .contentType(MediaType.valueOf("text/calendar"))
-                .body(icsData);
+        return writeObligationsICS.writeObligationsToIcs(new ArrayList<>(obligations));
     }
 
-    public ResponseEntity<byte[]> downloadObligationsForProfessorIcs() {
+    public byte[] downloadObligationsForProfessorIcs() {
         AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Obligation> obligations = obligationRepository.findByProfessorId(user.getId());
 
-        byte[] icsData = writeObligationsICS.writeObligationsToIcs(new ArrayList<>(obligations));
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=obligations_professor.ics")
-                .contentType(MediaType.valueOf("text/calendar"))
-                .body(icsData);
+        return writeObligationsICS.writeObligationsToIcs(new ArrayList<>(obligations));
     }
 }

@@ -27,19 +27,15 @@ public class CollegeService {
 
     public College getByName(String name) { return collegeRepository.findByName(name); }
 
-    public List<College> getAll() { return collegeRepository.findAll(); }
-
-    public College save(College college) { return collegeRepository.save(college); }
-
-    public ResponseEntity<List<CollegeDTO>> getAllColleges() {
+    public List<CollegeDTO> getAllColleges() {
         ArrayList<CollegeDTO> collegeDTOs = new ArrayList<>();
         for(College college : collegeRepository.findAll()) {
             collegeDTOs.add(collegeMapper.mapIncomingObjectToDTO(college));
         }
         if(collegeDTOs.isEmpty()) {
-            return ResponseEntity.noContent().build();
+            return null;
         }
-        return ResponseEntity.ok(collegeDTOs);
+        return collegeDTOs;
     }
 
 }

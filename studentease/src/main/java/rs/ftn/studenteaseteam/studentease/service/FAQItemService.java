@@ -16,8 +16,8 @@ import java.util.List;
 
 @Service
 public class FAQItemService {
-    private FAQItemRepository faqItemRepository;
-    private FAQItemMapper mapper;
+    private final FAQItemRepository faqItemRepository;
+    private final FAQItemMapper mapper;
 
     @Autowired
     public FAQItemService(FAQItemRepository faqItemRepository, FAQItemMapper mapper) {
@@ -27,45 +27,42 @@ public class FAQItemService {
 
     public FAQItem getById(Long id) { return faqItemRepository.findById(id).orElse(null); }
 
-    public List<FAQItem> getAll() { return faqItemRepository.findAll(); }
-
-    public FAQItem save(FAQItem faqItem) { return faqItemRepository.save(faqItem); }
-
-    public ResponseEntity<List<FAQItemDTO>> getAllFAQItems() {
+    public List<FAQItemDTO> getAllFAQItems() {
         List<FAQItemDTO> dtos = new ArrayList<>();
         for(FAQItem item : faqItemRepository.findAll()) {
             dtos.add(mapper.mapIncomingObjectToDTO(item));
         }
-
-        return new ResponseEntity<>(dtos, HttpStatus.OK);
+        if(dtos.isEmpty())
+            return null;
+        return dtos;
     }
 
-    public ResponseEntity<List<FAQItemDTO>> getUnasweredFAQItems() {
+    public List<FAQItemDTO> getUnasweredFAQItems() {
         List<FAQItemDTO> dtos = new ArrayList<>();
         for(FAQItem item : faqItemRepository.findAll()) {
             if(!item.getIsAnswered())
                 dtos.add(mapper.mapIncomingObjectToDTO(item));
         }
-
-        return new ResponseEntity<>(dtos, HttpStatus.OK);
+        if(dtos.isEmpty())
+            return null;
+        return dtos;
     }
 
-    public ResponseEntity<Boolean> createFAQItem(FAQItemDTO faqItemDTO) {
+    public Boolean createFAQItem(FAQItemDTO faqItemDTO) {
         try{
             FAQItem item = mapper.mapIncomingDTOToObject(faqItemDTO);
             item.setId(null);
             item.setAnswer("");
             item.setIsAnswered(false);
-            save(item);
-
-            return new ResponseEntity<>(true, HttpStatus.CREATED);
+            faqItemRepository.save(item);
+            return true;
         }
         catch (Exception e) {
-            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+            return false;
         }
     }
 
-    public ResponseEntity<Boolean> deleteFAQItem(long id) {
+    public Boolean deleteFAQItem(long id) {
         try{
             FAQItem item = faqItemRepository.findById(id).orElse(null);
             if(item != null) {
@@ -73,22 +70,21 @@ public class FAQItemService {
                 if(item.getCreatorId() == null)
                 {
                     faqItemRepository.delete(item);
-                    return new ResponseEntity<>(true, HttpStatus.OK);
+                    return true;
                 }
                 else if(item.getCreatorId().equals(user.getId()) || user.getUserRole().equals(AbstractUser.UserRole.ADMIN)) {
                     faqItemRepository.delete(item);
-                    return new ResponseEntity<>(true, HttpStatus.OK);
+                    return true;
                 }
-                return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
             }
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return false;
         }
         catch (Exception e) {
-            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+            return false;
         }
     }
 
-    public ResponseEntity<Boolean> updateFAQItem(FAQItemDTO faqItemDTO) {
+    public Boolean updateFAQItem(FAQItemDTO faqItemDTO) {
         try{
             FAQItem item = getById(faqItemDTO.getId());
             if(!item.getIsAnswered()) {
@@ -96,16 +92,13 @@ public class FAQItemService {
                 item.setCreatorId(user.getId());
                 item.setAnswer(faqItemDTO.getAnswer());
                 item.setIsAnswered(true);
-                save(item);
-
-                return new ResponseEntity<>(true, HttpStatus.OK);
+                faqItemRepository.save(item);
+                return true;
             }
-            else {
-                return new ResponseEntity<>(false, HttpStatus.CONFLICT);
-            }
+            return false;
         }
         catch (Exception e) {
-            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+            return false;
         }
     }
 }

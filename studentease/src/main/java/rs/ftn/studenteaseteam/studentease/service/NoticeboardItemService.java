@@ -30,22 +30,7 @@ public class NoticeboardItemService {
         this.studentService = studentService;
     }
 
-    //CRUD ZA NOTICEBOARD ITEM
-
-    public Optional<NoticeboardItem> getById(long id)
-    {
-        return noticeboardItemRepository.findById(id);
-    }
-
-    public List<NoticeboardItem> getAll() {
-        return noticeboardItemRepository.findAll();
-    }
-
-    public NoticeboardItem save(NoticeboardItem noticeboardItem) {
-        return noticeboardItemRepository.save(noticeboardItem);
-    }
-
-    public ResponseEntity<Boolean> createNewNoticeboardItem(NoticeboardItemDTO dto) {
+    public Boolean createNewNoticeboardItem(NoticeboardItemDTO dto) {
         AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         NoticeboardItem newNoticeboardItem = mapper.mapIncomingDTOToObject(dto);
         newNoticeboardItem.setCreatorId(user.getId());
@@ -96,36 +81,37 @@ public class NoticeboardItemService {
         }
 
         noticeboardItemRepository.save(newNoticeboardItem);
-        return new ResponseEntity<>(true, HttpStatus.CREATED);
+        return true;
     }
 
-    public ResponseEntity<Boolean> deleteNoticeboardItem(long id) {
+    public Boolean deleteNoticeboardItem(long id) {
         try{
             NoticeboardItem item = noticeboardItemRepository.findById(id).orElse(null);
             if(item != null) {
                 AbstractUser user = (AbstractUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                 if(item.getCreatorId().equals(user.getId()) || user.getUserRole().equals(AbstractUser.UserRole.ADMIN)) {
                     noticeboardItemRepository.delete(item);
-                    return new ResponseEntity<>(true, HttpStatus.OK);
+                    return true;
                 }
-                return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
             }
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return false;
         }
         catch (Exception e) {
-            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+            return false;
         }
     }
 
-    public ResponseEntity<List<NoticeboardItemDTO>> getAllNoticeboardItems() {
+    public List<NoticeboardItemDTO> getAllNoticeboardItems() {
          List<NoticeboardItemDTO> dtos = new ArrayList<>();
          for(NoticeboardItem item : noticeboardItemRepository.findAll().stream().toList()) {
              dtos.add(mapper.mapIncomingObjectToDTO(item));
          }
-         return new ResponseEntity<>(dtos, HttpStatus.OK);
+         if(dtos.isEmpty())
+             return null;
+         return dtos;
     }
 
-    public ResponseEntity<List<NoticeboardItemDTO>> getNoticeboardItemsByCollege(String collegeAbb) {
+    public List<NoticeboardItemDTO> getNoticeboardItemsByCollege(String collegeAbb) {
         List<NoticeboardItemDTO> dtos = new ArrayList<>();
         for(NoticeboardItem item : noticeboardItemRepository.findAll().stream().toList()) {
             if(item.getSubject() != null)
@@ -133,7 +119,8 @@ public class NoticeboardItemService {
                     dtos.add(mapper.mapIncomingObjectToDTO(item));
                 }
         }
-
-        return new ResponseEntity<>(dtos, HttpStatus.OK);
+        if(dtos.isEmpty())
+            return null;
+        return dtos;
     }
 }

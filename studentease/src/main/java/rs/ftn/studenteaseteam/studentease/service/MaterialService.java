@@ -19,11 +19,11 @@ public class MaterialService {
         this.materialRepository = materialRepository;
     }
 
-    public ResponseEntity<List<Material>> getBySubjectID(Long subjectId) {
+    public List<Material> getBySubjectID(Long subjectId) {
         ArrayList<Material> materials = materialRepository.findBySubjectId(subjectId);
         if (materials.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return null;
         }
-        return new ResponseEntity<>(materials, HttpStatus.OK);
+        return materials;
     }
 }

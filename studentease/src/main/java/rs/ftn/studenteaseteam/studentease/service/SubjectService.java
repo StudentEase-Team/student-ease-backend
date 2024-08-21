@@ -26,7 +26,7 @@ public class SubjectService {
     public List<Subject> getAll() { return subjectRepository.findAll(); }
     public Subject save(Subject subject) { return subjectRepository.save(subject); }
 
-    public ResponseEntity<List<SubjectGradeDTO>> getPassedSubjectsByYear(String year) {
+    public List<SubjectGradeDTO> getPassedSubjectsByYear(String year) {
         ArrayList<SubjectGradeDTO> passedSubjects = new ArrayList<>();
         Student currentStudent = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         for(Subject s : getAll())
@@ -36,10 +36,12 @@ public class SubjectService {
                     if(g.getStudent() != null && g.getStudent().getId().equals(currentStudent.getId()) && (year.equals("all") || s.getYear() == Integer.parseInt(year)))
                         passedSubjects.add(new SubjectGradeDTO(s.getId(), s.getName(), g.getValue(), g.getDate()));
         }
-        return ResponseEntity.ok(passedSubjects);
+        if(passedSubjects.isEmpty())
+            return null;
+        return passedSubjects;
     }
 
-    public ResponseEntity<List<SubjectGradeDTO>> getFailedSubjectsByYear(String year) {
+    public List<SubjectGradeDTO> getFailedSubjectsByYear(String year) {
         ArrayList<SubjectGradeDTO> failedSubjects = new ArrayList<>();
         Student currentStudent = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         for(Subject s : getAll())
@@ -57,6 +59,8 @@ public class SubjectService {
                             failedSubjects.add(new SubjectGradeDTO(s.getId(), s.getName(), -1, new Date()));
             }
         }
-        return ResponseEntity.ok(failedSubjects);
+        if(failedSubjects.isEmpty())
+            return null;
+        return failedSubjects;
     }
 }

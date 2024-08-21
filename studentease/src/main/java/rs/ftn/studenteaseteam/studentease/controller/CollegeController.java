@@ -7,20 +7,23 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.ftn.studenteaseteam.studentease.bean.College;
 import rs.ftn.studenteaseteam.studentease.dto.CollegeDTO;
 import rs.ftn.studenteaseteam.studentease.service.CollegeService;
+import rs.ftn.studenteaseteam.studentease.service.ResponseEntityService;
 
 import java.util.List;
 
 @RestController
 public class CollegeController {
     private final CollegeService collegeService;
+    private final ResponseEntityService responseEntityService;
 
     @Autowired
-    public CollegeController(CollegeService collegeService) {
+    public CollegeController(CollegeService collegeService, ResponseEntityService responseEntityService) {
         this.collegeService = collegeService;
+        this.responseEntityService = responseEntityService;
     }
 
     @GetMapping("/api/college")
     public ResponseEntity<List<CollegeDTO>> getAllColleges() {
-        return collegeService.getAllColleges();
+        return responseEntityService.getResponse(collegeService.getAllColleges());
     }
 }
