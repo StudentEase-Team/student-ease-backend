@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -13,9 +13,12 @@ public class NoticeboardItemDTO {
     public long id;
     public String title;
     public String message;
-    public LocalDateTime updatedAt;
+    public Date updatedAt;
     public String category;
     public Boolean shouldNotify;
-    public Long noticeboardId;
     public Long subjectId;
+    public Long collegeId;
+    public String subjectName;
+    public String collegeName;
+    public String creatorName;
 }

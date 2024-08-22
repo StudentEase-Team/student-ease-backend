@@ -6,4 +6,5 @@ import rs.ftn.studenteaseteam.studentease.bean.College;
 
 @Repository
 public interface CollegeRepository extends JpaRepository<College, Long> {
+    College findByName(String name);
 }

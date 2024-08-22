@@ -12,15 +12,20 @@ import java.util.UUID;
 @Setter
 public class Professor extends AbstractUser {
 
-    @Id
-    @GeneratedValue
-    public UUID id;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "professor_roles",
             joinColumns = @JoinColumn(name = "professor_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private College college;
+
+    @OneToMany(mappedBy = "professor", fetch = FetchType.EAGER)
+    private List<Subject> subjects;
+
+    @OneToMany(mappedBy = "professor")
+    private List<Obligation> obligations;
 
     public Professor(){
         userRole = UserRole.PROFESSOR;

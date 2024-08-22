@@ -14,20 +14,25 @@ public class College {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String name;
     private String abbreviation;
     private String address;
     private String phoneNumber;
     private String email;
 
-    @OneToOne(mappedBy="college")
-    private Noticeboard noticeboard;
-
-    @ManyToMany(mappedBy="college")
+    @OneToMany(mappedBy="college", fetch=FetchType.EAGER)
     @JsonIgnore
     private List<Student> students;
 
+    @OneToMany(mappedBy="college", fetch=FetchType.EAGER)
+    @JsonIgnore
+    private List<Professor> professors;
+
     @OneToMany(mappedBy="college", fetch = FetchType.EAGER)
     private List<Subject> subjects;
+
+    @OneToMany
+    @JsonIgnore
+    private List<NoticeboardItem> noticeboardItems;
 }

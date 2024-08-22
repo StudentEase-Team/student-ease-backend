@@ -1,14 +1,22 @@
 package rs.ftn.studenteaseteam.studentease.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @MappedSuperclass
 @Getter
+@Setter
 public abstract class AbstractUser implements UserDetails {
+    @Id
+    @GeneratedValue
+    private UUID id;
 
     public enum UserRole {
         STUDENT,
@@ -16,15 +24,15 @@ public abstract class AbstractUser implements UserDetails {
         ADMIN
     }
 
-    protected String email;
-    protected String password;
-    protected UserRole userRole;
-    protected String firstName;
-    protected String lastName;
-    protected String phone;
-    protected LocalDateTime credentialsUpdatedAt;
-    protected Boolean isEnabled;
-    protected Boolean isLocked;
+    private String email;
+    private String password;
+    public UserRole userRole;
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private LocalDateTime credentialsUpdatedAt;
+    private Boolean isEnabled;
+    private Boolean isLocked;
 
     @Override
     public String getPassword() {

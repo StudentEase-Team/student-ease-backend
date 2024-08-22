@@ -14,7 +14,6 @@ import java.util.List;
 public class SubjectDTO {
     private Long id;
     private String name;
-    private List<NoticeboardItem> noticeboardItems;
-    private List<Student> students;
-    private College college;
+    private String professorName;
+    private String collegeName;
 }

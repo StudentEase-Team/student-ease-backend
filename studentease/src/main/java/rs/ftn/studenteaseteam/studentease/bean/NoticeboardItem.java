@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -30,14 +32,16 @@ public class NoticeboardItem {
     private Long id;
     private String title;
     private String message;
-    private LocalDateTime updatedAt;
+    private Date updatedAt;
     private NoticeboardItemCategory category;
+    private UUID creatorId;
+    private String creatorRole;
 
-    @ManyToOne
-    @JoinColumn(name="noticeboard_id")
-    private Noticeboard noticeboard;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="subject_id")
     private Subject subject;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="college_id")
+    private College college;
 }

@@ -20,20 +20,20 @@ public class TokenUtils {
     private String APP_NAME;
     @Value("testtajna")
     public String SECRET;
-    @Value("900000")
+    @Value("3600000")
     private int EXPIRES_IN;
     @Value("Authorization")
     private String AUTH_HEADER;
     private static final String AUDIENCE_WEB = "web";
     private final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
-    public String generateToken(String username) {
+    public String generateToken(String username, String platform) {
         return Jwts.builder()
                 .setIssuer(APP_NAME)
                 .setSubject(username)
                 .setAudience(generateAudience())
                 .setIssuedAt(new Date())
-                .setExpiration(generateExpirationDate())
+                .setExpiration(generateExpirationDate(platform))
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
     }
 
@@ -41,8 +41,13 @@ public class TokenUtils {
         return AUDIENCE_WEB;
     }
 
-    private Date generateExpirationDate() {
-        return new Date(new Date().getTime() + EXPIRES_IN);
+    private Date generateExpirationDate(String platform) {
+        //1hr
+        if(platform.equals(AUDIENCE_WEB))
+            return new Date(new Date().getTime() + EXPIRES_IN);
+        //48hr
+        else
+            return new Date(new Date().getTime() + EXPIRES_IN * 48L);
     }
 
     public String getToken(HttpServletRequest request) {
@@ -139,8 +144,11 @@ public class TokenUtils {
         return (lastPasswordReset != null && created.isBefore(lastPasswordReset));
     }
 
-    public int getExpiredIn() {
-        return EXPIRES_IN;
+    public int getExpiredIn(String platform) {
+        if(platform.equals(AUDIENCE_WEB))
+            return EXPIRES_IN;
+        else
+            return EXPIRES_IN * 48;
     }
 
     public String getAuthHeaderFromHeader(HttpServletRequest request) {
