@@ -23,6 +23,9 @@ public class CollegeMapper {
         collegeDTO.setId(college.getId());
         collegeDTO.setName(college.getName());
         collegeDTO.setAbbreviation(college.getAbbreviation());
+        collegeDTO.setEmail(college.getEmail());
+        collegeDTO.setAddress(college.getAddress());
+        collegeDTO.setPhoneNumber(college.getPhoneNumber());
         collegeDTO.setSubjects(new ArrayList<>());
         if(college.getSubjects() == null) {
             collegeDTO.setSubjects(new ArrayList<>());

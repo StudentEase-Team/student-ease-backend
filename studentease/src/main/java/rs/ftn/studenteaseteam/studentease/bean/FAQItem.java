@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -22,11 +23,13 @@ public class FAQItem {
     private String answer;
     private Boolean isAnswered;
     private UUID creatorId;
+    private Date creationDate;
 
-    public FAQItem(Long id, String question, String answer, Boolean isAnswered) {
+    public FAQItem(Long id, String question, String answer, Date creationDate, Boolean isAnswered) {
         this.id = id;
         this.question = question;
         this.answer = answer;
+        this.creationDate = creationDate;
         this.isAnswered = isAnswered;
     }
 }
