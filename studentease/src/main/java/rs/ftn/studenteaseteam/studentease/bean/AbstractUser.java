@@ -1,6 +1,5 @@
 package rs.ftn.studenteaseteam.studentease.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;

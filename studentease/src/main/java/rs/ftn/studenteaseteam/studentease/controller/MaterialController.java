@@ -9,7 +9,6 @@ import rs.ftn.studenteaseteam.studentease.bean.Material;
 import rs.ftn.studenteaseteam.studentease.service.MaterialService;
 import rs.ftn.studenteaseteam.studentease.service.ResponseEntityService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

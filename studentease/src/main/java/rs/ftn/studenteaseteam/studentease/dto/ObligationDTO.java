@@ -1,15 +1,8 @@
 package rs.ftn.studenteaseteam.studentease.dto;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import rs.ftn.studenteaseteam.studentease.bean.Professor;
-import rs.ftn.studenteaseteam.studentease.bean.Student;
-import rs.ftn.studenteaseteam.studentease.bean.Subject;
 
 import java.util.Date;
 

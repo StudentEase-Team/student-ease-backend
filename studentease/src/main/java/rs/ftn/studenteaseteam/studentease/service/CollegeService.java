@@ -1,7 +1,6 @@
 package rs.ftn.studenteaseteam.studentease.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import rs.ftn.studenteaseteam.studentease.bean.College;
 import rs.ftn.studenteaseteam.studentease.dto.CollegeDTO;

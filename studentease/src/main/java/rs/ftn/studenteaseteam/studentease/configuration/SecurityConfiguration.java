@@ -77,6 +77,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/obligations/professor").hasAuthority("ROLE_PROFESSOR")
                         .requestMatchers(HttpMethod.GET, "/api/subjects/passed/{year}").hasAuthority("ROLE_STUDENT")
                         .requestMatchers(HttpMethod.GET, "/api/subjects/failed/{year}").hasAuthority("ROLE_STUDENT")
+                        .requestMatchers(HttpMethod.GET, "/api/subjects/professor").hasAuthority("ROLE_PROFESSOR")
                         .requestMatchers(HttpMethod.GET, "/api/obligations/student/download").hasAnyAuthority("ROLE_STUDENT")
                         .requestMatchers(HttpMethod.GET, "/api/obligations/professor/download").hasAnyAuthority("ROLE_PROFESSOR")
                 )

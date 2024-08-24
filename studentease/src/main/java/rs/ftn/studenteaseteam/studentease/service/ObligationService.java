@@ -1,8 +1,6 @@
 package rs.ftn.studenteaseteam.studentease.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import rs.ftn.studenteaseteam.studentease.bean.AbstractUser;
@@ -11,8 +9,6 @@ import rs.ftn.studenteaseteam.studentease.dto.ObligationDTO;
 import rs.ftn.studenteaseteam.studentease.mapper.ObligationMapper;
 import rs.ftn.studenteaseteam.studentease.repository.ObligationRepository;
 import java.util.List;
-import org.springframework.http.MediaType;
-import org.springframework.http.HttpHeaders;
 import rs.ftn.studenteaseteam.studentease.util.WriteObligationsICS;
 import java.util.ArrayList;
 

@@ -1,11 +1,12 @@
 package rs.ftn.studenteaseteam.studentease.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import rs.ftn.studenteaseteam.studentease.bean.*;
+import rs.ftn.studenteaseteam.studentease.dto.SubjectDTO;
 import rs.ftn.studenteaseteam.studentease.dto.SubjectGradeDTO;
+import rs.ftn.studenteaseteam.studentease.mapper.SubjectMapper;
 import rs.ftn.studenteaseteam.studentease.repository.SubjectRepository;
 
 import java.util.*;
@@ -14,22 +15,37 @@ import java.util.*;
 public class SubjectService {
 
     private final SubjectRepository subjectRepository;
+    private final SubjectMapper mapper;
 
     @Autowired
-    public SubjectService(SubjectRepository subjectRepository) {
+    public SubjectService(SubjectRepository subjectRepository, SubjectMapper mapper) {
         this.subjectRepository = subjectRepository;
+        this.mapper = mapper;
     }
 
     public Optional<Subject> getById(long id) {
         return subjectRepository.findById(id);
     }
-    public List<Subject> getAll() { return subjectRepository.findAll(); }
-    public Subject save(Subject subject) { return subjectRepository.save(subject); }
+
+    public List<SubjectDTO> getByProfessor() {
+        Professor currentProfessor = (Professor) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Subject> subjects = subjectRepository.findByProfessorId(currentProfessor.getId());
+        List<SubjectDTO> subjectsDto = new ArrayList<>();
+        for(Subject s : subjects)
+        {
+            subjectsDto.add(mapper.mapIncomingObjectToDTO(s));
+        }
+
+        if(subjectsDto.isEmpty())
+            return null;
+
+        return subjectsDto;
+    }
 
     public List<SubjectGradeDTO> getPassedSubjectsByYear(String year) {
         ArrayList<SubjectGradeDTO> passedSubjects = new ArrayList<>();
         Student currentStudent = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        for(Subject s : getAll())
+        for(Subject s : subjectRepository.findAll())
         {
             if(s.getGrades() != null)
                 for(Grade g : s.getGrades())
@@ -44,7 +60,7 @@ public class SubjectService {
     public List<SubjectGradeDTO> getFailedSubjectsByYear(String year) {
         ArrayList<SubjectGradeDTO> failedSubjects = new ArrayList<>();
         Student currentStudent = (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        for(Subject s : getAll())
+        for(Subject s : subjectRepository.findAll())
         {
             if(s.getGrades() != null) {
                 boolean found = false;
