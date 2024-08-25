@@ -1,0 +1,4 @@
+title,startDate,endDate,description,category,subject,student,professor
+Naslov ovde,2024-08-16 15:00:44.619,2024-08-16 16:30:44.619,Opis ovde,LECTURE,rs.ftn.studenteaseteam.studentease.bean.Subject@19631774,rs.ftn.studenteaseteam.studentease.bean.Student@320389da,rs.ftn.studenteaseteam.studentease.bean.Professor@616a697
+Naslov ovde,2024-08-16 08:30:44.619,2024-08-16 11:00:44.619,Opis ovde,EXERCISE,rs.ftn.studenteaseteam.studentease.bean.Subject@2456a1d9,rs.ftn.studenteaseteam.studentease.bean.Student@320389da,rs.ftn.studenteaseteam.studentease.bean.Professor@616a697
+Naslov ovde,2024-08-17 16:30:44.619,2024-08-17 17:30:44.619,Opis ovde,EXAM,rs.ftn.studenteaseteam.studentease.bean.Subject@648bc2a4,rs.ftn.studenteaseteam.studentease.bean.Student@320389da,rs.ftn.studenteaseteam.studentease.bean.Professor@616a697
