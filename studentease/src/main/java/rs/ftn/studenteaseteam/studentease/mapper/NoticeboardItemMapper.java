@@ -67,11 +67,11 @@ public class NoticeboardItemMapper {
     public NoticeboardItemDTO mapIncomingObjectToDTO(NoticeboardItem item) {
 
         NoticeboardItemDTO dto = new NoticeboardItemDTO();
-        if(item.getCreatorRole().equals("ROLE_ADMIN")) {
+        if(item.getCreatorRole().equals("ADMIN")) {
             Optional<Admin> admin = adminService.getById(item.getCreatorId());
             admin.ifPresent(value -> dto.setCreatorName(value.getUsername()));
         }
-        else if(item.getCreatorRole().equals("ROLE_PROFESSOR")) {
+        else if(item.getCreatorRole().equals("PROFESSOR")) {
             Optional<Professor> prof = professorService.getById(item.getCreatorId());
             prof.ifPresent(value -> dto.setCreatorName(value.getUsername()));
         }
